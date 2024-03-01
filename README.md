@@ -3,11 +3,13 @@
 ## Manipulações
 
 Atribuições:
+
 - "=" (recebe valor)
 - "+=" (aumenta valor)
 - "-=" (diminui valor)
 
 Operações:
+
 - "+" (adição)
 - "-" (subtração)
 - "*" (multiplicação)
@@ -15,6 +17,7 @@ Operações:
 - "%" (resto da divisão)
 
 Comparações:
+
 - "==" (igual a)
 - "!=" (diferente de)
 - ">" (maior que)
@@ -23,9 +26,11 @@ Comparações:
 - "<=" (menor ou igual a)
 
 Operadores:
+
 - "&&" (AND)
 - "||" (OR)
 - "!" (NOT)
+- 
 Incremento: "++" | ex: int num = 1; int resultado = ++num
 
 ## Convenções
@@ -35,10 +40,11 @@ Incremento: "++" | ex: int num = 1; int resultado = ++num
 - Nome de constante: MINHA_CONSTANTE
 - Nome de variável: minhaVariavel
 - Linhas de código devem ter menos de 80 char
-- Espaços para separar operadores, palavras-chave e elementos de controle de fluxo | ex: if (condicao) {
+- Espaços para separar operadores, palavras-chave e elementos de controle de fluxo | ex: if (condição)
 - Use comentários para documentar seu código (//linha)
 
 ## Tipos primitivos
+
 - boolean (true ou false)
 - char (caracteres unicode individuais ex:'a')
 - byte (inteiros de 8 bits [-128 a 127])
@@ -53,6 +59,7 @@ Incremento: "++" | ex: int num = 1; int resultado = ++num
 ## Strings
 
 Em Java, String são classes
+
 - String nome = "Alyson";
 - String message= """
                   Text Block
