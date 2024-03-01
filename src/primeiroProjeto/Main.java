@@ -44,6 +44,21 @@ public class Main {
             - long (inteiros de 64 bits [-9.223.372.036.854.775.808 a 9.223.372.036.854.775.807 {+-9.2*10^18}])
             - float (reais de 32 bits)
             - double (reais de 64 bits)
+
+          Strings: em Java, String são classes
+            - String nome = "Alyson";
+            - String message= """
+                              Text Block
+                              """;
+            - métodos:
+                -.equals(): compara conteúdo de strings (ex: senha.equals("12345"))
+                -.equalsIgnoreCase(): compara conteúdo de strings desconsiderando case (ex: senha.equalsIgnoreCase("AjSa"))
+                -.format(%s, %d, %.xf): insere dentro da string variáveis do tipo string (%s), inteiro (%d) e real com x casas decimais (%.xf)
+                    (ex: String.format("Meu nome é %s, eu tenho %d anos e hoje gastei %.2f reais", nome, idade, valor));)
+
+
+
+          .
          */
 
     }
