@@ -36,6 +36,9 @@ public class Main {
         int idadeCarro = carro.calcularIdade(2023);
         System.out.println(idadeCarro);
 
-
+        Aluno aluno = new Aluno();
+        aluno.nome = "Pedro";
+        aluno.idade = 13;
+        aluno.mostrarInformacao();
     }
 }
