@@ -71,9 +71,14 @@ public class Main {
     private static void realizarTransferencia() {
         System.out.print("Digite o valor da transferência: ");
         double valor = scanner.nextDouble();
-        usuario.setSaldo(usuario.getSaldo() - valor);
-        System.out.println("Transferência realizada com sucesso!");
-        System.out.println("Novo saldo: R$" + usuario.getSaldo() + "\n");
+        if (valor < usuario.getSaldo()) {
+            usuario.setSaldo(usuario.getSaldo() - valor);
+            System.out.println("Transferência realizada com sucesso!");
+            System.out.println("Novo saldo: R$" + usuario.getSaldo() + "\n");
+        } else {
+            System.out.println("Saldo insuficiente.");
+        }
+
     }
 }
 
