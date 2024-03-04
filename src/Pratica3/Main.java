@@ -28,5 +28,14 @@ public class Main {
         double nota = musica.calcularMedia();
         System.out.println(nota);
 
+        Carro carro = new Carro();
+        carro.modelo = "corolla";
+        carro.ano = 2003;
+        carro.cor = "vinho";
+        carro.exibirFicha();
+        int idadeCarro = carro.calcularIdade(2023);
+        System.out.println(idadeCarro);
+
+
     }
 }
