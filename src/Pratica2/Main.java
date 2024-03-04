@@ -13,12 +13,15 @@ public class Main {
         }
 
         Scanner scanner = new Scanner(System.in);
+        int numero1;
+        int numero2;
+        double numero3;
 
         //1: Crie um programa que solicite ao usuário digitar um número. 
         //.1: Se o número for positivo, exiba "Número positivo", caso contrário, exiba "Número negativo"
 
         System.out.print("1) Digite um número: ");
-        int numero1 = scanner.nextInt();
+        numero1 = scanner.nextInt();
         if (numero1 > 0) {
             System.out.println("O número é positivo.");
         } else if (numero1 < 0) {
@@ -32,7 +35,7 @@ public class Main {
         System.out.print("2) Digite o primeiro número: ");
         numero1 = scanner.nextInt();
         System.out.print("2) Digite o segundo número: ");
-        int numero2 = scanner.nextInt();
+        numero2 = scanner.nextInt();
         if (numero1 == numero2) {
             System.out.println("Os números são iguais.");
         } else if (numero1 > numero2) {
@@ -40,5 +43,19 @@ public class Main {
         } else {
             System.out.println("O primeiro número é menor que o segundo.");
         }
+
+        /*Crie um menu que oferece duas opções ao usuário: 
+        "1. Calcular área do quadrado" e "2. Calcular área do círculo". 
+        Solicite a escolha do usuário e realize o cálculo da área com base na opção selecionada. */
+        System.out.print("3) Digite um número: ");
+        numero1 = scanner.nextInt();
+        System.out.print("3) Escolha uma das opções:\n[1] Calcular área do quadrado\n[2] Calcular área do círculo\n");
+        numero2 = scanner.nextInt();
+        if (numero2 == 1) {
+            numero3 = numero1*numero1;
+        } else {
+            numero3 = Math.PI*numero1*numero1;
+        }
+        System.out.printf("A área calculada é: %f", numero3);
     }
 }
