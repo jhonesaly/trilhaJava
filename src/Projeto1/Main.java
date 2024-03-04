@@ -5,18 +5,17 @@ import java.util.Scanner;
 public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
-    private static String usuario = "Alyson Jhones";
-    private static double saldo = 100.00;
+    private static Usuario usuario = new Usuario("Alyson Jhones", 100.00);
 
     public static void main(String[] args) {
-        
-        //Limpa terminal:
+
+        // Limpa terminal:
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         } catch (Exception e) {
             System.out.println("Erro ao limpar o terminal: " + e.getMessage());
         }
-        
+
         int opcao;
 
         while (true) {
@@ -42,12 +41,12 @@ public class Main {
             }
         }
     }
-    
+
     private static void exibirMenu() {
         System.out.println("**********************");
         System.out.println("*** Menu Principal ***");
         System.out.println("**********************");
-        System.out.println("Saudações, " + usuario + ".\n");
+        System.out.println("Saudações, " + usuario.getNome() + ".\n");
         System.out.println("Menu:");
         System.out.println("1. Consultar Saldo");
         System.out.println("2. Realizar Depósito");
@@ -58,22 +57,49 @@ public class Main {
     }
 
     private static void consultarSaldo() {
-        System.out.println("Saldo: R$" + saldo + "\n");
+        System.out.println("Saldo: R$" + usuario.getSaldo() + "\n");
     }
 
     private static void realizarDeposito() {
         System.out.print("Digite o valor do depósito: ");
         double valor = scanner.nextDouble();
-        saldo+= valor;
+        usuario.setSaldo(usuario.getSaldo() + valor);
         System.out.println("Depósito realizado com sucesso!");
-        System.out.println("Novo saldo: R$" + saldo + "\n");
+        System.out.println("Novo saldo: R$" + usuario.getSaldo() + "\n");
     }
 
     private static void realizarTransferencia() {
         System.out.print("Digite o valor da transferência: ");
         double valor = scanner.nextDouble();
-        saldo-= valor;
+        usuario.setSaldo(usuario.getSaldo() - valor);
         System.out.println("Transferência realizada com sucesso!");
-        System.out.println("Novo saldo: R$" + saldo + "\n");
+        System.out.println("Novo saldo: R$" + usuario.getSaldo() + "\n");
+    }
+}
+
+class Usuario {
+
+    private String nome;
+    private double saldo;
+
+    public Usuario(String nome, double saldo) {
+        this.nome = nome;
+        this.saldo = saldo;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 }
