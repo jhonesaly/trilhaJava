@@ -68,4 +68,49 @@ métodos:
 - .equals(): compara conteúdo de strings (ex: senha.equals("12345"))
 - .equalsIgnoreCase(): compara conteúdo de strings desconsiderando case (ex: senha.equalsIgnoreCase("AjSa"))
 - .format(%s, %d, %.xf): insere dentro da string variáveis do tipo string (%s), inteiro (%d) e real com x casas decimais (%.xf)
-    (ex: String.format("Meu nome é %s, eu tenho %d anos e hoje gastei %.2f reais", nome, idade, valor));)
+    (ex: String.format("Meu nome é %s, eu tenho %d anos e hoje gastei %.2f reais", nome, idade, valor))
+
+## Decisão
+
+Em Java, as principais estruturas de decisão são `if`, `else if` e `else`.
+
+1. **if:** Utilizado para executar um bloco de código se uma condição for verdadeira.
+
+   ```java
+   int idade = 18;
+   if (idade >= 18) {
+       System.out.println("Maior de idade");
+   }
+   ```
+
+2. **else if:** Permite verificar condições adicionais se a condição do `if` não for atendida.
+
+   ```java
+   int nota = 75;
+   if (nota >= 90) {
+       System.out.println("A");
+   } else if (nota >= 80) {
+       System.out.println("B");
+   } else {
+       System.out.println("C");
+   }
+   ```
+
+3. **switch:** Útil para avaliar várias condições sobre uma variável.
+
+   ```java
+   int diaDaSemana = 3;
+   switch (diaDaSemana) {
+       case 1:
+           System.out.println("Domingo");
+           break;
+       case 2:
+           System.out.println("Segunda-feira");
+           break;
+       // ... outros casos
+       default:
+           System.out.println("Dia inválido");
+   }
+   ```
+
+Estas estruturas fornecem flexibilidade para tomar decisões com base em diferentes condições em seus programas Java.
