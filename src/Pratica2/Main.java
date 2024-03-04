@@ -67,8 +67,7 @@ public class Main {
         }
 
         /*5) Crie um programa que solicite ao usuário a entrada de um número inteiro. 
-        Verifique se o número é par ou ímpar e exiba uma mensagem correspondente.
-         */
+        Verifique se o número é par ou ímpar e exiba uma mensagem correspondente.*/
         System.out.print("\n5) Digite um número: ");
         numero1 = scanner.nextInt();
         if (numero1%2 == 0) {
@@ -76,5 +75,13 @@ public class Main {
         } else {
             System.out.println("O número é ímpar.");
         }
+
+        //6) Crie um programa que solicite ao usuário um número e calcule o fatorial desse número.
+        System.out.print("\n6) Digite um número: ");
+        numero2 = 1;
+        for (numero1 = scanner.nextInt(); numero1 > 1; numero1--) {
+            numero2 *= numero1;
+        }
+        System.out.printf("O fatorial do número é: %d", numero2);
     }
 }
