@@ -234,3 +234,70 @@ public class LeituraDados {
        }
    }
    ```
+
+## Loops
+
+Vamos abordar os loops mais comuns em Java, como `while` e `for`. Essas estruturas são utilizadas para repetir a execução de um bloco de código enquanto uma condição específica for atendida.
+
+1. **Loop `while`:**
+   O loop `while` executa um bloco de código enquanto uma condição for verdadeira. O seja, o que estiver dentro do parênteses, deve ser uma expressão booleana verdadeira. Aqui está um exemplo simples:
+
+   ```java
+   int contador = 0;
+   while (contador < 5) {
+       System.out.println("Contagem: " + contador);
+       contador++;
+   }
+   ```
+
+   Neste exemplo, o bloco de código dentro do `while` é repetido enquanto a variável `contador` for menor que 5.
+
+2. **Loop `do-while`:**
+   Similar ao `while`, mas garante que o bloco de código seja executado pelo menos uma vez, mesmo que a condição seja falsa inicialmente.
+
+   ```java
+   int contador = 0;
+   do {
+       System.out.println("Contagem: " + contador);
+       contador++;
+   } while (contador < 5);
+   ```
+
+3. **Loop `for`:**
+   O loop `for` é frequentemente usado quando você sabe exatamente quantas vezes deseja repetir o código. Possui uma inicialização, uma condição e uma expressão de atualização, todos no cabeçalho do loop.
+
+   ```java
+   for (int i = 0; i < 5; i++) {
+       System.out.println("Iteração: " + i);
+   }
+   ```
+
+   Neste exemplo, o loop `for` é usado para iterar 5 vezes, de 0 a 4, de 1 em 1 (i++).
+
+4. **Loop `for-each`:**
+   Esse tipo de loop é específico para iterar sobre elementos de uma coleção, como arrays ou listas.
+
+   ```java
+   int[] numeros = {1, 2, 3, 4, 5};
+   for (int numero : numeros) {
+       System.out.println("Número: " + numero);
+   }
+   ```
+
+   Aqui, o loop `for-each` percorre cada elemento do array `numeros`.
+
+5. **Break e Continue:**
+   - A palavra-chave `break` é usada para sair imediatamente de um loop.
+   - A palavra-chave `continue` é usada para pular a iteração atual e continuar com a próxima.
+
+   ```java
+   for (int i = 0; i < 10; i++) {
+       if (i == 5) {
+           break; // Sai do loop quando i é igual a 5
+       }
+       if (i % 2 == 0) {
+           continue; // Pula a iteração se i for par
+       }
+       System.out.println("Número ímpar: " + i);
+   }
+   ```
