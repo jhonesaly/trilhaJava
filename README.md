@@ -445,3 +445,27 @@ public class Cachorro extends Animal {
 ```
 
 O polimorfismo torna o código mais flexível e reutilizável, permitindo o tratamento genérico de classes base, enquanto ainda executa comportamentos específicos das implementações.
+
+### Protected em Java
+
+A palavra-chave `protected` em Java é um modificador de acesso que permite o acesso a membros (atributos e métodos) dentro da mesma classe, em subclasses (herança) e no mesmo pacote. Aqui está um resumo com um exemplo de código:
+
+```java
+public class ExemploProtected {
+    protected int idade;  // Atributo protegido
+
+    protected void exibirIdade() {
+        System.out.println("Idade: " + idade);
+    }
+}
+
+// Classe filha que herda de ExemploProtected
+public class Filha extends ExemploProtected {
+    public void mostrarInformacoes() {
+        idade = 25;  // Acesso direto ao atributo protegido da classe pai
+        exibirIdade();  // Chama o método protegido da classe pai
+    }
+}
+```
+
+No exemplo acima, a classe `Filha` pode acessar o atributo `idade` e o método `exibirIdade()` da classe `ExemploProtected` porque estão marcados como `protected`. Isso ilustra como o modificador `protected` facilita a implementação de herança ao permitir o acesso controlado a membros nas classes derivadas.
