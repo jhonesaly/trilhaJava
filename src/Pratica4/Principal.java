@@ -1,8 +1,8 @@
 package Pratica4;
 
-import Pratica4.Classes.ContaBancaria;
-import Pratica4.Classes.IdadePessoa;
-import Pratica4.Classes.Produto;
+import Pratica4.classes.ContaBancaria;
+import Pratica4.classes.IdadePessoa;
+import Pratica4.classes.Produto;
 
 
 public class Principal {

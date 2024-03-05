@@ -1,6 +1,6 @@
-package Clone;
+package clone;
 
-import Clone.br.com.alura.screenmatch.modelos.Filme;
+import clone.br.com.alura.screenmatch.modelos.Filme;
 
 public class Principal {
 
