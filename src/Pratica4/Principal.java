@@ -2,6 +2,8 @@ package Pratica4;
 
 import Pratica4.Classes.ContaBancaria;
 import Pratica4.Classes.IdadePessoa;
+import Pratica4.Classes.Produto;
+
 
 public class Principal {
     public static void main(String[] args) {
@@ -24,5 +26,14 @@ public class Principal {
             " anos."
             );
     
+        //3
+        Produto produto = new Produto();
+        produto.setNome("xbox");
+        produto.setPreco(2000);
+        System.out.println(produto.getPreco());
+        produto.aplicarDesconto(0.1);
+        System.out.println(produto.getPreco());
+        produto.aplicarDesconto(0.1);
+        System.out.println(produto.getPreco());
     }
 }
