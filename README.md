@@ -400,3 +400,48 @@ public class ExemploAnnotation {
     }
 }
 ```
+
+### Polimorfismo em Java
+
+O polimorfismo em Java refere-se à capacidade de entidades (métodos ou objetos) assumirem diferentes formas. Existem dois tipos principais: sobrecarga, com métodos de mesmo nome e diferentes parâmetros, e sobreposição, com métodos em classes relacionadas.
+
+#### Sobrecarga (Overloading)
+
+Definição: Múltiplos métodos com o mesmo nome, mas diferentes parâmetros.
+
+Exemplo:
+
+```java
+public class ExemploPolimorfismo {
+    public int somar(int a, int b) {
+        return a + b;
+    }
+
+    public double somar(double a, double b) {
+        return a + b;
+    }
+}
+```
+
+#### Sobreposição (Overriding)
+
+Definição: Uma classe filha fornece implementação específica para um método já definido na classe pai.
+
+Exemplo:
+
+```java
+public class Animal {
+    public void fazerSom() {
+        System.out.println("Som genérico de animal");
+    }
+}
+
+public class Cachorro extends Animal {
+    @Override
+    public void fazerSom() {
+        System.out.println("Latindo...");
+    }
+}
+```
+
+O polimorfismo torna o código mais flexível e reutilizável, permitindo o tratamento genérico de classes base, enquanto ainda executa comportamentos específicos das implementações.
