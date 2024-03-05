@@ -515,3 +515,44 @@ package com.example;
 import com.example.classes.*;
 ...
 ```
+
+## Interface e Implements
+
+Em Java, interfaces são contratos que definem um conjunto de métodos que uma classe deve implementar. A palavra-chave `implements` é usada para indicar que uma classe está seguindo o contrato de uma interface.
+
+### Interface
+
+Definição: Uma interface em Java é um conjunto de métodos abstratos (sem implementação) que serve como um contrato para as classes que a implementam. Elas permitem alcançar a abstração total.
+
+Exemplo de Interface:
+
+```java
+public interface Animal {
+    void emitirSom();
+    void dormir();
+}
+```
+
+### Implements
+
+Definição: A palavra-chave `implements` é usada para declarar que uma classe está comprometida em fornecer implementações para os métodos definidos em uma ou mais interfaces.
+
+Exemplo de Implementação:
+
+```java
+public class Cachorro implements Animal {
+    @Override
+    public void emitirSom() {
+        System.out.println("Latindo...");
+    }
+
+    @Override
+    public void dormir() {
+        System.out.println("Zzzzz...");
+    }
+}
+```
+
+No exemplo acima, a classe `Cachorro` implementa a interface `Animal` e fornece implementações para os métodos `emitirSom()` e `dormir()`. Isso garante que qualquer classe que implemente a interface `Animal` deve fornecer essas implementações.
+
+Interfaces são cruciais para alcançar a abstração e fornecer uma maneira consistente de definir contratos entre classes em Java. O uso de `implements` garante que uma classe está aderindo aos requisitos definidos pela interface.
