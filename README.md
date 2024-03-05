@@ -469,3 +469,49 @@ public class Filha extends ExemploProtected {
 ```
 
 No exemplo acima, a classe `Filha` pode acessar o atributo `idade` e o método `exibirIdade()` da classe `ExemploProtected` porque estão marcados como `protected`. Isso ilustra como o modificador `protected` facilita a implementação de herança ao permitir o acesso controlado a membros nas classes derivadas.
+
+## Pacotes e Importações
+
+Em Java, pacotes são mecanismos de organização de classes e interfaces. Eles ajudam a evitar conflitos de nomes entre classes e fornecem uma estrutura hierárquica para organizar o código. A importação, por sua vez, permite o uso de classes de outros pacotes no código atual.
+
+### Pacotes
+
+Definição: Pacotes são diretórios que contêm classes relacionadas, organizando o código Java. Eles ajudam na modularização e reutilização de código.
+
+Exemplo de Declaração de Pacote:
+
+```java
+package com.example.classes;
+
+public class MinhaClasse {
+    // Código da classe aqui...
+}
+```
+
+### Importações
+
+Definição: Importações permitem que você use classes de outros pacotes em seu código. Isso simplifica a referência a essas classes e evita a necessidade de escrever o caminho completo toda vez.
+
+Exemplo de Importação:
+
+```java
+package com.example;
+
+import com.example.classes.MinhaClasse;  // Importa a classe dentro da pasta classes
+
+public class Main {
+    public static void main(String[] args) {
+        MinhaClasse objeto = new MinhaClasse();
+        // Uso da classe ArrayList aqui...
+    }
+}
+```
+
+Ao importar, é possível utilizar apenas '*' para importar todas as classes dentro da pasta.
+
+```java
+package com.example;
+
+import com.example.classes.*;
+...
+```
