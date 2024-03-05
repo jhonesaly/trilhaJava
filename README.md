@@ -301,3 +301,102 @@ Vamos abordar os loops mais comuns em Java, como `while` e `for`. Essas estrutur
        System.out.println("Número ímpar: " + i);
    }
    ```
+
+## Criação de Classes e Objetos em Java
+
+### Public e Private
+
+Em Java, as palavras-chave `public` e `private` são utilizadas para controlar o acesso aos membros de uma classe. Quando um atributo ou método é declarado como `public`, ele pode ser acessado por qualquer classe. Por outro lado, ao declarar como `private`, restringimos o acesso apenas à própria classe.
+
+Exemplo:
+
+```java
+public class ExemploClasse {
+    public int atributoPublico;
+    private String atributoPrivado;
+
+    // Métodos e construtores aqui...
+}
+```
+
+### Getters e Setters
+
+Para garantir um encapsulamento adequado, é comum utilizar métodos conhecidos como "getters" e "setters" para acessar e modificar os atributos privados de uma classe, impedindo que o usuário possa manipular diretamente os atributos.
+
+Exemplo:
+
+```java
+public class ExemploClasse {
+    private String nome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String novoNome) {
+        this.nome = novoNome;
+    }
+}
+```
+
+Não, construtores, getters e setters são conceitos distintos, mas todos estão relacionados com a criação e manipulação de objetos em Java.
+
+### Construtores
+
+Os construtores são métodos especiais em uma classe que são chamados automaticamente quando um objeto dessa classe é instanciado. Eles são usados para inicializar os atributos do objeto ou realizar outras operações necessárias durante a criação. Um construtor em Java tem o mesmo nome da classe e não possui tipo de retorno.
+
+Exemplo:
+
+```java
+public class ExemploClasse {
+    private String nome;
+
+    // Construtor
+    public ExemploClasse(String nome) {
+        this.nome = nome;
+    }
+}
+```
+
+No exemplo acima, o construtor `ExemploClasse` recebe um parâmetro `nome` e inicializa o atributo `nome` da classe.
+
+### Herança
+
+Herança em Java permite a criação de uma nova classe que herda características de uma classe existente. A palavra-chave `extends` é usada para estabelecer essa relação. A classe filha herda atributos e métodos da classe mãe (superclasse).
+
+Exemplo:
+
+```java
+public class Animal {
+    public void emitirSom() {
+        System.out.println("Som genérico de animal");
+    }
+}
+
+public class Cachorro extends Animal {
+    // Métodos específicos para a classe Cachorro...
+}
+```
+
+### Annotations
+
+Annotations são metadados que fornecem informações sobre o código-fonte. Elas são precedidas pelo símbolo `@` e podem ser aplicadas a classes, métodos, variáveis, etc. No contexto de Java, elas são usadas para fornecer informações adicionais ao compilador, ambiente de execução ou ferramentas. São uteis para gerar "hints" em caso de refatoração, indicando relações que precisam ser refatoradas também.
+
+Exemplo:
+
+```java
+public class ExemploAnnotation {
+
+    @Override
+    // Indica que o método está substituindo um método na classe pai
+    public void metodoOverride() {
+        // Implementação aqui...
+    }
+
+    @Deprecated
+    // Indica que o método está obsoleto e deve ser evitado
+    public void metodoAntigo() {
+        // Implementação aqui...
+    }
+}
+```
