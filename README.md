@@ -75,7 +75,15 @@ Incremento: "++" | ex: int num = 1; int resultado = ++num
 
 **Casting**: mudar tipo de uma variável especificando o tipo desejado na frente da mesma (ex: int varInt = (int) varFloat;)
 
-## Strings
+**Declaração com var**: a palavra-chave `var` no Java permite a inferência automática de tipos durante a declaração de variáveis, simplificando o código ao eliminar a necessidade de especificar o tipo explicitamente. É útil em situações onde o tipo é claro a partir do contexto, tornando o código mais conciso e legível. Essa adição visa melhorar a experiência do desenvolvedor sem comprometer a forte tipagem do Java.
+
+Por exemplo:
+```java
+var numero = 42;  // O tipo int é inferido automaticamente
+var texto = "Exemplo";  // O tipo String é inferido automaticamente
+```
+
+### Strings
 
 Em Java, String são classes
 
