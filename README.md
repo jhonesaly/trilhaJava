@@ -1,5 +1,24 @@
 # Trilha Java
 
+## Introdução
+
+Java é uma linguagem de programação amplamente utilizada que se destaca por suas características distintivas. Ela é conhecida por ser uma linguagem fortemente tipada, o que significa que as variáveis têm tipos de dados fixos e o compilador verifica rigorosamente a consistência de tipos durante a compilação. Isso contribui para a detecção precoce de erros e aumenta a segurança do código.
+
+A portabilidade é outra característica notável do Java, uma vez que os programas escritos em Java podem ser executados em diferentes plataformas sem a necessidade de recompilação. Isso é possível devido à Máquina Virtual Java (JVM), que executa o código Java convertido para um formato intermediário chamado bytecode.
+
+A orientação a objetos é um princípio fundamental em Java, proporcionando modularidade, reutilização de código e facilidade de manutenção. As classes e objetos formam a base para a criação de estruturas complexas, facilitando o desenvolvimento de software robusto e escalável.
+
+A segurança é uma prioridade em Java, especialmente em ambientes online. A execução de código não confiável é controlada por meio do gerenciamento de memória automático e da inclusão de recursos como a verificação de arrays para prevenir vulnerabilidades.
+
+Além disso, Java possui um sistema de coleta de lixo que gerencia automaticamente a alocação e desalocação de memória, aliviando os desenvolvedores dessa responsabilidade. A vasta biblioteca padrão de Java, juntamente com o suporte à comunidade e a multiplicidade de frameworks, torna a linguagem uma escolha robusta para uma variedade de aplicações, desde desenvolvimento web até aplicativos móveis.
+
+Essas características tornam Java uma linguagem versátil e poderosa, atendendo às demandas de diversos cenários de desenvolvimento de software.
+
+| Logo do Java | Mascote do Java |
+|---|---|
+|![Logo do Java](images/java_logo.png)|![Mascote do Java](images/Duke_(Java_mascot)_waving.svg)|
+
+
 ## Manipulações
 
 Atribuições:
