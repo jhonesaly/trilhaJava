@@ -821,9 +821,71 @@ Por exemplo, a classe `ArrayList` implementa a interface `List`, que por sua vez
 List<String> lista = new ArrayList<>();
 // Ou, se preferir trocar a implementação:
 List<String> outraLista = new LinkedList<>();
+
+List<Integer> lista = new ArrayList<>();
 ```
 
+Observe, entretanto, que ao criar uma List deve-se usar uma variável genérica (Generics) para funcionar.
+
 Estes conceitos são essenciais para o desenvolvimento em Java, proporcionando flexibilidade e eficiência no gerenciamento e manipulação de listas. Continue praticando para aprimorar suas habilidades de programação em Java.
+
+### Generics
+
+Generics em Java são uma poderosa característica que permite criar classes, interfaces e métodos que operam com tipos de dados desconhecidos até o momento da compilação.
+
+**Declaração de Generics:**
+
+A declaração de generics é feita usando parâmetros de tipo, indicados entre colchetes angulares `< >`.
+
+```java
+public class Caixa<T> {
+    private T conteudo;
+
+    public void armazenar(T novoConteudo) {
+        conteudo = novoConteudo;
+    }
+
+    public T obterConteudo() {
+        return conteudo;
+    }
+}
+```
+
+**Uso de Generics:**
+
+Ao criar instâncias de classes genéricas, você especifica o tipo de dados que a classe irá manipular.
+
+```java
+Caixa<String> caixaDeTexto = new Caixa<>();
+caixaDeTexto.armazenar("Olá, Generics!");
+String conteudo = caixaDeTexto.obterConteudo();
+```
+
+**Métodos Genéricos:**
+
+Generics também podem ser aplicados a métodos, permitindo flexibilidade no tipo de dados a ser manipulado.
+
+```java
+public <T> T primeiroElemento(List<T> lista) {
+    return lista.isEmpty() ? null : lista.get(0);
+}
+```
+
+**Bounded Wildcards:**
+
+Limitar os tipos que podem ser usados em generics, conhecido como Bounded Wildcards, oferece mais controle sobre os tipos aceitáveis.
+
+```java
+public static double somaLista(List<? extends Number> listaNumeros) {
+    double soma = 0.0;
+    for (Number numero : listaNumeros) {
+        soma += numero.doubleValue();
+    }
+    return soma;
+}
+```
+
+Generics proporcionam reusabilidade, tipo seguro e flexibilidade ao lidar com estruturas de dados e algoritmos em Java, permitindo que você escreva código mais genérico e robusto.
 
 ## Map
 
