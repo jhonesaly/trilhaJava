@@ -743,3 +743,73 @@ public class TesteInstanceOf {
 Neste exemplo, `meuAnimal instanceof Animal` retorna `true`, indicando que `meuAnimal` é uma instância de `Animal`. Da mesma forma, `meuAnimal instanceof Cachorro` também retorna `true`, pois `meuAnimal` é, na verdade, uma instância de `Cachorro`.
 
 Essa verificação de tipos é valiosa ao lidar com herança e polimorfismo, permitindo que o código se adapte dinamicamente ao tipo real do objeto em execução.
+
+## Ordenação
+
+### Ordenação com Collections.sort
+
+No Java, a ordenação de listas torna-se simples com o método `sort` da classe `Collections` quando os objetos são comparáveis. Este método, por exemplo, coloca uma lista de Strings em ordem alfabética.
+
+```java
+import java.util.Collections;
+import java.util.ArrayList;
+
+public class OrdenacaoExemplo {
+    public static void main(String[] args) {
+        ArrayList<String> listaNomes = new ArrayList();
+        listaNomes.add("Bruna");
+        listaNomes.add("Cecília");
+        listaNomes.add("Alice");
+        Collections.sort(listaNomes);
+        System.out.println(listaNomes); //Saída: [Alice, Bruna, Cecília]
+    }
+}
+```
+
+### Comparable e compareTo
+
+A interface `Comparable` é fundamental ao lidar com objetos personalizados, como a classe `Titulo`, ao realizar ordenações em Java. Essa interface permite que você defina a lógica de comparação específica para seus objetos, possibilitando que o Java compreenda como ordená-los corretamente.
+
+**Quando usar a Interface Comparable?**
+
+A interface `Comparable` é usada quando você precisa especificar uma ordem natural para seus objetos. Por exemplo, se você tiver uma classe `Titulo` e desejar que os títulos sejam ordenados com base em critérios específicos, como ano de lançamento, nome ou qualquer outro atributo, a implementação da interface `Comparable` é necessária.
+
+Ao implementar `Comparable`, você define a lógica de comparação no método `compareTo`, indicando como um objeto deve ser comparado a outro para determinar a ordem.
+
+**Exemplo Completo com a Classe Titulo:**
+
+Suponha que a classe `Titulo` tenha um atributo `anoLancamento` que determina a ordem de prioridade.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Titulo implements Comparable<Titulo> {
+    private String nome;
+    private int anoLancamento;
+
+    // Construtor, getters e setters
+
+    @Override
+    public int compareTo(Titulo outroTitulo) {
+        return Integer.compare(this.anoLancamento, outroTitulo.anoLancamento);
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Titulo> listaTitulos = new ArrayList<>();
+        listaTitulos.add(new Titulo("Titulo1", 2010));
+        listaTitulos.add(new Titulo("Titulo2", 2005));
+        listaTitulos.add(new Titulo("Titulo3", 2015));
+
+        Collections.sort(listaTitulos);
+
+        // Exibindo a lista ordenada
+        for (Titulo titulo : listaTitulos) {
+            System.out.println(titulo.getNome() + " - Ano: " + titulo.getAnoLancamento());
+        }
+    }
+}
+```
+
+Neste exemplo, a classe `Titulo` é comparável com base no ano de lançamento. A lista de títulos é então ordenada de acordo com esse critério específico ao utilizar `Collections.sort`.
+
