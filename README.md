@@ -707,3 +707,39 @@ O `ArrayList` é uma implementação da interface `List` em Java, sendo uma cole
     ```
 
 O `ArrayList` é especialmente útil quando a quantidade de elementos é dinâmica e precisa ser gerenciada eficientemente durante a execução do programa. Sua versatilidade o torna uma escolha comum para muitas operações de manipulação de listas em Java.
+
+## instanceof
+
+A palavra-chave `instanceof` em Java é utilizada para verificar se um objeto é uma instância de uma determinada classe ou implementa uma interface específica. Isso é útil para verificar o tipo de um objeto antes de realizar operações específicas a esse tipo.
+
+**Exemplo:**
+
+```java
+public class Animal {
+    // Algumas propriedades e métodos da classe Animal
+}
+
+public class Cachorro extends Animal {
+    // Propriedades e métodos específicos de Cachorro
+}
+
+public class TesteInstanceOf {
+    public static void main(String[] args) {
+        Animal meuAnimal = new Cachorro();
+
+        // Verificando se meuAnimal é uma instância de Animal
+        if (meuAnimal instanceof Animal) {
+            System.out.println("É uma instância de Animal");
+        }
+
+        // Verificando se meuAnimal é uma instância de Cachorro
+        if (meuAnimal instanceof Cachorro) {
+            System.out.println("É uma instância de Cachorro");
+        }
+    }
+}
+```
+
+Neste exemplo, `meuAnimal instanceof Animal` retorna `true`, indicando que `meuAnimal` é uma instância de `Animal`. Da mesma forma, `meuAnimal instanceof Cachorro` também retorna `true`, pois `meuAnimal` é, na verdade, uma instância de `Cachorro`.
+
+Essa verificação de tipos é valiosa ao lidar com herança e polimorfismo, permitindo que o código se adapte dinamicamente ao tipo real do objeto em execução.
