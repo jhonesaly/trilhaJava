@@ -583,3 +583,78 @@ public class Cachorro implements Animal {
 No exemplo acima, a classe `Cachorro` implementa a interface `Animal` e fornece implementações para os métodos `emitirSom()` e `dormir()`. Isso garante que qualquer classe que implemente a interface `Animal` deve fornecer essas implementações.
 
 Interfaces são cruciais para alcançar a abstração e fornecer uma maneira consistente de definir contratos entre classes em Java. O uso de `implements` garante que uma classe está aderindo aos requisitos definidos pela interface.
+
+## Arrays, listas e matrizes
+
+Em Java, listas, arrays e matrizes são estruturas de dados fundamentais.
+
+Arrays (vetores) são coleções fixas de elementos do mesmo tipo.
+
+Matrizes são arrays bidimensionais.
+
+Listas, como ArrayList, são versões dinâmicas que podem crescer ou diminuir.
+
+1. **Arrays:**
+   - `length`: Retorna o comprimento do array.
+   - Exemplo:
+     ```java
+     int[] numeros = {1, 2, 3};
+     int tamanho = numeros.length; // Resultado: 3
+     ```
+
+2. **Matrizes:**
+   - Acessadas por `[linha][coluna]`.
+   - Exemplo:
+     ```java
+     int[][] matriz = {{1, 2}, {3, 4}};
+     int elemento = matriz[0][1]; // Resultado: 2
+     ```
+
+3. **ArrayList (Lista):**
+
+     ```java
+     import java.util.ArrayList;
+
+     ArrayList<String> nomes = new ArrayList<>();
+     nomes.add("Alice");
+     nomes.add("Bob");
+     nomes.remove(0); // Remove "Alice"
+     ```
+
+### ArrayList
+
+**ArrayList em Java:**
+
+O `ArrayList` é uma implementação da interface `List` em Java, sendo uma coleção dinâmica que pode crescer ou diminuir conforme necessário. Ao contrário de arrays convencionais, o `ArrayList` permite adicionar, remover e acessar elementos de forma flexível, proporcionando maior versatilidade em manipulações de dados.
+
+**Principais Métodos do ArrayList:**
+
+1. **`add(elemento)`:** Adiciona um elemento ao final da lista.
+
+    ```java
+    import java.util.ArrayList;
+
+    ArrayList<String> nomes = new ArrayList<>();
+    nomes.add("Alice");
+    nomes.add("Bob");
+    ```
+
+2. **`remove(index)`:** Remove o elemento no índice especificado.
+
+    ```java
+    nomes.remove(0); // Remove "Alice"
+    ```
+
+3. **`get(index)`:** Retorna o elemento no índice especificado.
+
+    ```java
+    String primeiroNome = nomes.get(0); // Resultado: "Bob"
+    ```
+
+4. **`size()`:** Retorna o número de elementos na lista.
+
+    ```java
+    int tamanho = nomes.size(); // Resultado: 1
+    ```
+
+O `ArrayList` é especialmente útil quando a quantidade de elementos é dinâmica e precisa ser gerenciada eficientemente durante a execução do programa. Sua versatilidade o torna uma escolha comum para muitas operações de manipulação de listas em Java.
