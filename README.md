@@ -618,9 +618,6 @@ Listas, como ArrayList, são versões dinâmicas que podem crescer ou diminuir.
      import java.util.ArrayList;
 
      ArrayList<String> nomes = new ArrayList<>();
-     nomes.add("Alice");
-     nomes.add("Bob");
-     nomes.remove(0); // Remove "Alice"
      ```
 
 ### ArrayList
