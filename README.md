@@ -813,3 +813,73 @@ public class Titulo implements Comparable<Titulo> {
 
 Neste exemplo, a classe `Titulo` é comparável com base no ano de lançamento. A lista de títulos é então ordenada de acordo com esse critério específico ao utilizar `Collections.sort`.
 
+## Declaração flexível
+
+Por exemplo, a classe `ArrayList` implementa a interface `List`, que por sua vez é uma subinterface de `Collection`. Ao declararmos uma lista como `List<Tipo> lista`, ganhamos a flexibilidade de trocar facilmente a implementação subjacente sem alterar o restante do código.
+
+```java
+List<String> lista = new ArrayList<>();
+// Ou, se preferir trocar a implementação:
+List<String> outraLista = new LinkedList<>();
+```
+
+Estes conceitos são essenciais para o desenvolvimento em Java, proporcionando flexibilidade e eficiência no gerenciamento e manipulação de listas. Continue praticando para aprimorar suas habilidades de programação em Java.
+
+## Map
+
+- **Definição:** `Map` é uma interface que representa uma coleção de pares chave-valor, onde cada chave é única e mapeada para um único valor.
+
+- **Características:**
+  - Não pode conter chaves duplicadas.
+  - Permite associar valores a chaves específicas.
+  - Fornece métodos para recuperar, inserir, remover e verificar a presença de chaves e valores.
+
+- **Principais Implementações:**
+  - `HashMap`: Implementação baseada em tabela de dispersão, oferecendo alta eficiência em operações básicas, como inserção, remoção e recuperação. Não garante ordem de inserção ou ordenação das chaves.
+  - `TreeMap`: Implementação baseada em árvore de busca binária balanceada (árvore vermelho-preta), garantindo ordenação natural das chaves ou uma ordem definida por um comparador.
+  - `LinkedHashMap`: Implementação que mantém a ordem de inserção dos pares chave-valor, além de permitir a ordenação baseada em acesso (ordem de último acesso).
+
+- **Métodos Importantes:**
+  - `put(key, value)`: Adiciona um par chave-valor ao mapa.
+  - `get(key)`: Retorna o valor associado à chave especificada.
+  - `containsKey(key)`: Verifica se o mapa contém uma chave específica.
+  - `keySet()`: Retorna um conjunto de todas as chaves no mapa.
+
+### HashMap
+
+- **Definição:** `HashMap` é uma implementação da interface `Map` que armazena os pares chave-valor em uma estrutura de tabela de dispersão.
+
+- **Características:**
+  - Permite inserção, remoção e recuperação de pares chave-valor em tempo constante, em média (O(1)).
+  - Não garante a ordem de inserção dos elementos.
+  - Permite que chaves e valores sejam `null`.
+  - É não sincronizado, o que significa que não é seguro para uso em ambientes concorrentes sem sincronização externa.
+
+- **Uso Comum:**
+  - Ideal para situações em que a ordem dos elementos não é importante e o acesso rápido aos elementos é prioritário.
+  - Amplamente utilizado para armazenar dados em cache, construir índices e realizar mapeamentos simples entre chaves e valores.
+
+Resumindo, `Map` é uma interface que define a estrutura de dados de mapeamento chave-valor, enquanto `HashMap` é uma das implementações mais comuns dessa interface, fornecendo uma estrutura eficiente para armazenar e manipular pares chave-valor em Java.
+
+  ```java
+  import java.util.HashMap;
+  import java.util.Map;
+
+  public class ExemploHashMap {
+      public static void main(String[] args) {
+          // Criando um HashMap
+          Map<String, Integer> mapa = new HashMap<>();
+
+          // Adicionando elementos
+          mapa.put("Chave1", 10);
+          mapa.put("Chave2", 20);
+          mapa.put("Chave3", 30);
+
+          // Acessando valores
+          int valor = mapa.get("Chave2");
+          System.out.println("Valor associado à Chave2: " + valor); // Valor associado à chave2: 20
+      }
+  }
+  ```
+
+Em resumo, `Map` é uma interface que define a estrutura de um mapa chave-valor, enquanto `HashMap` é uma implementação específica dessa interface, utilizando uma tabela de dispersão para armazenar os dados. O `HashMap` é amplamente utilizado em Java para operações eficientes de mapeamento.
