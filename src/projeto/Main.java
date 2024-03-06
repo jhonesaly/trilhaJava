@@ -1,11 +1,14 @@
-package Projeto1;
+package projeto;
 
 import java.util.Scanner;
+
+import projeto.classes.*;
 
 public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
-    private static Usuario usuario = new Usuario("Alyson Jhones", 100.00);
+    private static User usuario = new User("Alyson Jhones", 100.00);
+    
 
     public static void main(String[] args) {
 

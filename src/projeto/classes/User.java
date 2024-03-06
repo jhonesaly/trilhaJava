@@ -1,14 +1,23 @@
-package Projeto1;
+package projeto.classes;
 
-public class Usuario {
+public class User {
 
+    //private int id;
+    //private String senha;
     private String nome;
     private double saldo;
 
-    public Usuario(String nome, double saldo) {
+    public User(String nome, double saldo) {
         this.nome = nome;
         this.saldo = saldo;
     }
+
+    // public void registerUser(String nomeCompleto, int cpf, String senha) {
+    //     this.nome = nomeCompleto;
+    //     this.id = cpf;
+    //     this.nome = nomeCompleto;
+    //     this.nome = nomeCompleto;
+    // }
 
     public String getNome() {
         return nome;
