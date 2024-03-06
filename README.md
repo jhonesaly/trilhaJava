@@ -309,6 +309,11 @@ Vamos abordar os loops mais comuns em Java, como `while` e `for`. Essas estrutur
    for (int numero : numeros) {
        System.out.println("Número: " + numero);
    }
+
+   ArrayList<Produto> produtos = new ArrayList<>();
+   for (Produto i: produtos) {
+        System.out.println(i);
+   }
    ```
 
    Aqui, o loop `for-each` percorre cada elemento do array `numeros`.
@@ -629,9 +634,9 @@ No exemplo acima, a classe `Cachorro` implementa a interface `Animal` e fornece 
 
 Interfaces são cruciais para alcançar a abstração e fornecer uma maneira consistente de definir contratos entre classes em Java. O uso de `implements` garante que uma classe está aderindo aos requisitos definidos pela interface.
 
-## Arrays, listas e matrizes
+## Coleções
 
-Em Java, listas, arrays e matrizes são estruturas de dados fundamentais.
+Em Java, listas, arrays e matrizes são estruturas de dados fundamentais chamadas genericamente de coleções.
 
 Arrays (vetores) são coleções fixas de elementos do mesmo tipo.
 
