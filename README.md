@@ -770,15 +770,13 @@ public class OrdenacaoExemplo {
 
 A interface `Comparable` é fundamental ao lidar com objetos personalizados, como a classe `Titulo`, ao realizar ordenações em Java. Essa interface permite que você defina a lógica de comparação específica para seus objetos, possibilitando que o Java compreenda como ordená-los corretamente.
 
-**Quando usar a Interface Comparable?**
-
-A interface `Comparable` é usada quando você precisa especificar uma ordem natural para seus objetos. Por exemplo, se você tiver uma classe `Titulo` e desejar que os títulos sejam ordenados com base em critérios específicos, como ano de lançamento, nome ou qualquer outro atributo, a implementação da interface `Comparable` é necessária.
+Ela é usada quando você precisa especificar uma ordem natural para seus objetos. Por exemplo, se você tiver uma classe `Titulo` e desejar que os títulos sejam ordenados com base em critérios específicos, como ano de lançamento, nome ou qualquer outro atributo, a implementação da interface `Comparable` é necessária.
 
 Ao implementar `Comparable`, você define a lógica de comparação no método `compareTo`, indicando como um objeto deve ser comparado a outro para determinar a ordem.
 
-**Exemplo Completo com a Classe Titulo:**
+Observe que a implementação do método `compareTo` ao implementar a interface não é opcional. Pode parecer esquisito o `compareTo` aparecer dentro do `@Override`, mas o que etá acontecendo é que você está usando o `compareTo` de outra classe (String, por exemplo), para modificar o `compareTo` da classe atual (Titulo, por exemplo).
 
-Suponha que a classe `Titulo` tenha um atributo `anoLancamento` que determina a ordem de prioridade.
+Observe também que a Class em `Comparable<Class>` deve ser sempre da mesma classe ou de uma superclasse da classe sendo criada. Essa é a maneira de indicar que a classe Titulo é comparável com outras instâncias da mesma classe.
 
 ```java
 import java.util.ArrayList;
