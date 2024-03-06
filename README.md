@@ -389,6 +389,49 @@ public class Pessoa {
 
 No exemplo acima, o construtor `Pessoa` recebe um parâmetro `nome` e `pessoa`, inicializando os atributos da classe.
 
+#### Construtores herdados
+
+Ao herdar de uma classe mãe em Java, a classe filha pode estender a funcionalidade da classe base e incluir seus próprios atributos. No entanto, a gestão dos construtores, especialmente quando há novos atributos na classe filha, requer atenção.
+
+**Exemplo:**
+
+Considere uma classe mãe `Pessoa` com dois atributos e construtores:
+
+```java
+public class Pessoa {
+    protected String nome;
+    protected int idade;
+
+    public Pessoa(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+}
+```
+
+Agora, ao criar uma classe filha `Funcionario` com dois atributos adicionais, podemos usar o `super` para chamar o construtor da classe mãe:
+
+```java
+public class Funcionario extends Pessoa {
+    private String cargo;
+    private double salario;
+
+    public Funcionario(String nome, int idade, String cargo, double salario) {
+        super(nome, idade); // Chama o construtor da classe mãe
+        this.cargo = cargo;
+        this.salario = salario;
+    }
+}
+```
+
+Ao criar uma instância da classe `Funcionario`, podemos inicializar tanto os atributos herdados da classe mãe quanto os novos atributos da classe filha:
+
+```java
+Funcionario empregado = new Funcionario("Alice", 30, "Desenvolvedor", 5000.0);
+```
+
+Dessa forma, garantimos que tanto os atributos da classe mãe quanto os da classe filha são inicializados corretamente ao criar um objeto da classe filha. O uso do `super` no construtor da classe filha é crucial para delegar a inicialização dos atributos herdados à classe mãe.
+
 ### Herança
 
 Herança em Java permite a criação de uma nova classe que herda características de uma classe existente. A palavra-chave `extends` é usada para estabelecer essa relação. A classe filha herda atributos e métodos da classe mãe (superclasse).
@@ -599,6 +642,7 @@ Listas, como ArrayList, são versões dinâmicas que podem crescer ou diminuir.
 1. **Arrays:**
    - `length`: Retorna o comprimento do array.
    - Exemplo:
+
      ```java
      int[] numeros = {1, 2, 3};
      int tamanho = numeros.length; // Resultado: 3
@@ -607,6 +651,7 @@ Listas, como ArrayList, são versões dinâmicas que podem crescer ou diminuir.
 2. **Matrizes:**
    - Acessadas por `[linha][coluna]`.
    - Exemplo:
+  
      ```java
      int[][] matriz = {{1, 2}, {3, 4}};
      int elemento = matriz[0][1]; // Resultado: 2
