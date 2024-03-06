@@ -375,17 +375,19 @@ Os construtores são métodos especiais em uma classe que são chamados automati
 Exemplo:
 
 ```java
-public class ExemploClasse {
+public class Pessoa {
     private String nome;
+    private int idade;
 
     // Construtor
-    public ExemploClasse(String nome) {
+    public Pessoa(String nome, int idade) {
         this.nome = nome;
+        this.idade = idade;
     }
 }
 ```
 
-No exemplo acima, o construtor `ExemploClasse` recebe um parâmetro `nome` e inicializa o atributo `nome` da classe.
+No exemplo acima, o construtor `Pessoa` recebe um parâmetro `nome` e `pessoa`, inicializando os atributos da classe.
 
 ### Herança
 
