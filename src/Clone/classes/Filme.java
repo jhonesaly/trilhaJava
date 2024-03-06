@@ -1,4 +1,4 @@
-package Clone.br.com.screenmatch.modelos;
+package clone.classes;
 
 public class Filme {
 

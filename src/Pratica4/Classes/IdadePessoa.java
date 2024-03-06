@@ -1,4 +1,4 @@
-package Pratica4.Classes;
+package Pratica4.classes;
 
 public class IdadePessoa {
     private String nome;
