@@ -1083,4 +1083,55 @@ public class ExemploRecord {
 
 Neste exemplo, o record "Pessoa" possui dois atributos, "nome" e "idade", e todos os métodos padrão são automaticamente gerados pelo compilador.
 
-Os records são uma adição útil ao Java, especialmente para modelar dados simples de maneira mais concisa e eficiente.
+## Dependências
+
+### Gson
+
+A biblioteca Gson é uma ferramenta em Java que facilita a conversão de objetos Java para formato JSON e vice-versa. Ela é amplamente utilizada para serialização e desserialização de dados, tornando mais fácil a comunicação entre sistemas que compartilham informações no formato JSON.
+
+Principais usos e métodos da biblioteca Gson:
+
+1. **Serialização para JSON:**
+   - `toJson(Object obj)`: Converte um objeto Java para uma representação JSON em formato de string.
+
+2. **Desserialização de JSON para objetos Java:**
+   - `fromJson(String json, Class<T> classOfT)`: Converte uma string JSON para um objeto Java do tipo especificado pela classe.
+
+3. **Configurações e personalizações:**
+   - Gson oferece várias opções de configuração, como o uso de anotações para personalizar o processo de serialização e desserialização.
+
+4. **Tratamento de tipos complexos:**
+   - Pode lidar com coleções, arrays, mapas e tipos complexos de forma eficiente.
+
+5. **Controle sobre campos:**
+   - Permite configurar a inclusão ou exclusão de campos específicos durante a serialização/desserialização.
+
+Exemplo básico de uso:
+
+```java
+import com.google.gson.Gson;
+
+public class ExemploGson {
+    public static void main(String[] args) {
+        // Criando um objeto
+        Pessoa pessoa = new Pessoa("João", 25);
+
+        // Convertendo objeto para JSON
+        Gson gson = new Gson();
+        String json = gson.toJson(pessoa);
+        System.out.println("Objeto para JSON: " + json); //Objeto para JSON: {"nome":"João","idade":25}
+
+        /* JSON de entrada:
+            {
+            "nome": "João",
+            "idade": 25
+            }
+        */
+
+        // Convertendo JSON para objeto
+        Pessoa pessoaDesserializada = gson.fromJson(json, Pessoa.class);
+        System.out.println("JSON para objeto: " + pessoaDesserializada); //JSON para objeto: Pessoa{nome='João', idade=25}
+    }
+}
+
+```
