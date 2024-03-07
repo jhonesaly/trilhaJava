@@ -990,6 +990,10 @@ O Apache Maven é uma ferramenta de automação de construção e gerenciamento 
     <groupId>seuGrupo</groupId>
     <artifactId>seuArtefato</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
     <build>
         <plugins>
             <plugin>
