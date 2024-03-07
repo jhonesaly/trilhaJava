@@ -144,61 +144,7 @@ Estas estruturas fornecem flexibilidade para tomar decisões com base em diferen
 
 ## Entrada de dados
 
-Certamente! Em Java, a leitura de dados pode ser realizada de várias maneiras.
-
-### Scanner
-
-Em Java, a classe `Scanner` é muito útil para ler dados do usuário a partir do teclado. Vamos abordar alguns pontos-chave:
-
-1. **Importação da classe Scanner:**
-   No início do seu programa Java, você precisa importar a classe `Scanner`. Isso é feito com a seguinte linha de código:
-
-   ```java
-   import java.util.Scanner;
-   ```
-
-   Essa instrução diz ao Java para usar a classe `Scanner` do pacote `java.util`.
-
-2. **Criação de uma instância de Scanner:**
-   Antes de usar o `Scanner`, você precisa criar uma instância dele. Isso é feito da seguinte maneira:
-
-   ```java
-   Scanner scanner = new Scanner(System.in);
-   ```
-
-   Aqui, `System.in` representa a entrada padrão, que é o teclado.
-
-3. **Leitura de diferentes tipos de dados:**
-   O `Scanner` oferece métodos para ler diferentes tipos de dados. Alguns dos mais comuns incluem:
-
-   - `nextInt()`: Lê um número inteiro.
-   - `nextDouble()`: Lê um número decimal.
-   - `next()` ou `nextLine()`: Lê uma string.
-   - a classe Scanner em Java não possui um método específico como 'nextBoolean()' para ler valores booleanos diretamente. No entanto, você pode ler uma string e, em seguida, converter para booleano.
-
-   Exemplo de leitura de um número inteiro:
-
-   ```java
-   int numero = scanner.nextInt();
-   ```
-
-4. **Exibição de mensagens ao usuário:**
-   Você pode usar `System.out.print` ou `System.out.println` para exibir mensagens indicando ao usuário o que deve ser inserido. Por exemplo:
-
-   ```java
-   System.out.print("Digite sua idade: ");
-   ```
-
-5. **Fechamento do Scanner:**
-   Quando você terminar de usar o `Scanner`, é uma boa prática fechá-lo para liberar recursos. Isso é feito assim:
-
-   ```java
-   scanner.close();
-   ```
-
-   Fechar o `Scanner` é importante para evitar vazamento de recursos e possíveis problemas no programa.
-
-Juntando tudo, aqui está um exemplo completo de como usar o `Scanner` para ler a idade do usuário:
+Em Java, a leitura de dados pode ser realizada de várias maneiras. Mas a forma mais comum é com a classe Scanner. Ela será tratada em detalhes mais adiante quando tratarmos do pacote java.io, mas fique agora com o básico de como usá-la:
 
 ```java
 import java.util.Scanner;
@@ -223,44 +169,12 @@ public class LeituraDados {
 }
 ```
 
-### BufferedReader e Linha de comando
+O `Scanner` oferece métodos para ler diferentes tipos de dados. Alguns dos mais comuns incluem:
 
-1. **BufferedReader para entrada do teclado:**
-   Utilizando a classe `BufferedReader` para ler dados do teclado.
-
-   ```java
-   import java.io.BufferedReader;
-   import java.io.IOException;
-   import java.io.InputStreamReader;
-
-   public class LeituraDados {
-       public static void main(String[] args) throws IOException {
-           BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-           System.out.print("Digite uma frase: ");
-           String frase = reader.readLine();
-
-           System.out.println("Você digitou: " + frase);
-
-           reader.close();
-       }
-   }
-   ```
-
-2. **Ler argumentos da linha de comando:**
-   Para ler argumentos passados na linha de comando ao executar o programa.
-
-   ```java
-   public class LeituraDados {
-       public static void main(String[] args) {
-           if (args.length > 0) {
-               System.out.println("Argumento passado: " + args[0]);
-           } else {
-               System.out.println("Nenhum argumento passado.");
-           }
-       }
-   }
-   ```
+- `nextInt()`: Lê um número inteiro.
+- `nextDouble()`: Lê um número decimal.
+- `next()` ou `nextLine()`: Lê uma string.
+- a classe Scanner em Java não possui um método específico como 'nextBoolean()' para ler valores booleanos diretamente. No entanto, você pode ler uma string e, em seguida, converter para booleano.
 
 ## Loops
 
@@ -1220,3 +1134,107 @@ Idealmente, a captura de exceção deve ser a mais específica o possível. Uma 
 Por exemplo, se você tentar inserir uma String quando o programa espera um número inteiro, o InputMismatchException será lançado, e a mensagem de exceção indicará isso. O mesmo se aplica se você tentar fazer uma divisão por zero, onde o ArithmeticException será lançado.
 
 A abordagem de permitir que o código gere erros de propósito é uma ótima maneira de entender e tratar as exceções específicas que podem ocorrer em diferentes partes do seu programa. Isso ajuda na depuração e melhoria da robustez do seu código.
+
+## java.io
+
+O pacote `java.io` em Java é essencial para operações de entrada e saída (I/O), possibilitando interações com diversos fluxos de dados, como arquivos, entrada padrão, saída padrão, entre outros.
+
+### Hierarquia de Classes
+
+1. **InputStream / OutputStream:**
+   - `InputStream`: Classe abstrata para leitura de bytes.
+   - `OutputStream`: Classe abstrata para gravação de bytes.
+
+2. **Reader / Writer:**
+   - `Reader`: Classe abstrata para leitura de caracteres.
+   - `Writer`: Classe abstrata para gravação de caracteres.
+
+### Classes Principais
+
+- `File`: Representa caminhos e nomes de arquivos ou diretórios no sistema de arquivos.
+- `FileInputStream` / `FileOutputStream`: Realizam operações de leitura e escrita de bytes em arquivos.
+- `FileReader` / `FileWriter`: Realizam operações de leitura e escrita de caracteres em arquivos de texto.
+- `BufferedReader` / `BufferedWriter`: Oferecem operações de leitura e escrita em buffer, otimizando o desempenho.
+- `DataInputStream` / `DataOutputStream`: Permitem a leitura e gravação de tipos de dados primitivos.
+
+### Exemplo de Uso
+
+#### Leitura de Arquivo com FileReader
+
+```java
+import java.io.FileReader;
+import java.io.IOException;
+
+public class LeituraArquivo {
+    public static void main(String[] args) {
+        try (FileReader fileReader = new FileReader("caminho/do/arquivo.txt")) {
+            int caractere;
+            while ((caractere = fileReader.read()) != -1) {
+                System.out.print((char) caractere);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+#### Escrita em Arquivo com FileWriter:
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class EscritaArquivo {
+    public static void main(String[] args) {
+        try (FileWriter fileWriter = new FileWriter("caminho/do/arquivo.txt")) {
+            fileWriter.write("Conteúdo a ser escrito no arquivo.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Scanner para Entrada de Dados:
+
+```java
+import java.util.Scanner;
+
+public class LeituraDados {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite seu nome: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Digite sua idade: ");
+        int idade = scanner.nextInt();
+
+        System.out.println("Nome: " + nome + ", Idade: " + idade);
+
+        scanner.close();
+    }
+}
+```
+
+### BufferedReader para Entrada do Teclado:
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class LeituraDadosBuffered {
+    public static void main(String[] args) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            System.out.print("Digite uma frase: ");
+            String frase = reader.readLine();
+
+            System.out.println("Você digitou: " + frase);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
