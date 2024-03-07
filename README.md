@@ -1210,3 +1210,9 @@ try {
     // Tratamento para outras exceções
 }
 ```
+
+Idealmente, a captura de exceção deve ser a mais específica o possível. Uma maneira eficaz de identificar o tipo correto de exceção é permitir que o código gere um erro de propósito para que o compilador indique a exceção específica que está sendo lançada. Quando você executa o código e ocorre um erro, a mensagem de exceção exibida no console geralmente contém informações sobre o tipo de exceção e a linha onde ocorreu.
+
+Por exemplo, se você tentar inserir uma String quando o programa espera um número inteiro, o InputMismatchException será lançado, e a mensagem de exceção indicará isso. O mesmo se aplica se você tentar fazer uma divisão por zero, onde o ArithmeticException será lançado.
+
+A abordagem de permitir que o código gere erros de propósito é uma ótima maneira de entender e tratar as exceções específicas que podem ocorrer em diferentes partes do seu programa. Isso ajuda na depuração e melhoria da robustez do seu código.
