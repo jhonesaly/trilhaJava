@@ -1016,3 +1016,48 @@ O MvnRepository serve como um repositório de artefatos compilados, bibliotecas 
 Os desenvolvedores podem declarar as dependências de seus projetos em arquivos de configuração específicos do Maven (como o arquivo pom.xml). Quando o projeto é construído usando o Maven, a ferramenta automaticamente baixa as dependências necessárias do MvnRepository e as inclui no projeto, facilitando a gestão de dependências e a construção de aplicativos Java.
 
 acesse em: [mvn repository link](https://mvnrepository.com/)
+
+## Java Record
+
+Records são uma forma concisa de criar classes imutáveis e transparentes para dados. Eles são frequentemente usados para representar dados simples e não mutáveis, como estruturas de dados.
+
+Alguns pontos importantes sobre records:
+
+1. **Imutabilidade:** Os records são automaticamente imutáveis, o que significa que seus atributos não podem ser alterados depois de criados. Isso contribui para uma abordagem mais segura e fácil de entender para lidar com dados.
+
+2. **Métodos padrão:** Records geram automaticamente métodos padrão, como equals(), hashCode() e toString(), com base nos atributos da classe. Isso economiza tempo e reduz a necessidade de escrever código boilerplate.
+
+3. **Declaratividade:** A declaração de um record é concisa, focando apenas na definição dos atributos. O compilador Java cuida da implementação dos métodos padrão, simplificando o código.
+
+Exemplo de um record simples:
+
+```java
+public class ExemploRecord {
+
+    // Definindo o record Pessoa
+    public record Pessoa(String nome, int idade) {
+        // Nenhum método adicional é necessário, pois o compilador gera automaticamente equals, hashCode e toString
+    }
+
+    public static void main(String[] args) {
+        // Criando uma instância do record Pessoa
+        Pessoa pessoa = new Pessoa("João", 25);
+
+        // Exibindo os dados usando o método toString() gerado automaticamente
+        System.out.println("Dados da Pessoa: " + pessoa);
+
+        // Acessando os atributos do record
+        String nome = pessoa.nome();
+        int idade = pessoa.idade();
+
+        // Exibindo os atributos individualmente
+        System.out.println("Nome: " + nome);
+        System.out.println("Idade: " + idade);
+    }
+}
+
+```
+
+Neste exemplo, o record "Pessoa" possui dois atributos, "nome" e "idade", e todos os métodos padrão são automaticamente gerados pelo compilador.
+
+Os records são uma adição útil ao Java, especialmente para modelar dados simples de maneira mais concisa e eficiente.
