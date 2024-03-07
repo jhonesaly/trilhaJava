@@ -943,3 +943,13 @@ Resumindo, `Map` é uma interface que define a estrutura de dados de mapeamento 
   ```
 
 Em resumo, `Map` é uma interface que define a estrutura de um mapa chave-valor, enquanto `HashMap` é uma implementação específica dessa interface, utilizando uma tabela de dispersão para armazenar os dados. O `HashMap` é amplamente utilizado em Java para operações eficientes de mapeamento.
+
+## MVN repository
+
+O Maven Repository, muitas vezes referido como "MvnRepository" ou "Central Repository", é um repositório centralizado para armazenar e disponibilizar artefatos de software relacionados ao ecossistema do Apache Maven. O Maven é uma ferramenta de gerenciamento de construção e projeto amplamente utilizada na comunidade Java.
+
+O MvnRepository serve como um repositório de artefatos compilados, bibliotecas e plugins Maven, permitindo que os desenvolvedores acessem e baixem dependências necessárias para seus projetos. Essas dependências podem incluir bibliotecas de terceiros, frameworks e outras ferramentas.
+
+Os desenvolvedores podem declarar as dependências de seus projetos em arquivos de configuração específicos do Maven (como o arquivo pom.xml). Quando o projeto é construído usando o Maven, a ferramenta automaticamente baixa as dependências necessárias do MvnRepository e as inclui no projeto, facilitando a gestão de dependências e a construção de aplicativos Java.
+
+acesse em: [mvn repository link](https://mvnrepository.com/)
