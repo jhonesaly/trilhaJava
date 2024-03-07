@@ -478,6 +478,29 @@ public class ExemploAnnotation {
 }
 ```
 
+#### Serialized
+
+O annotation `@SerializedName` é uma anotação utilizada em bibliotecas de serialização e desserialização de JSON para associar o nome de um campo em sua classe Java com a chave correspondente em um objeto JSON. Essa anotação é comumente usada em conjunto com bibliotecas como o Gson, que converte objetos Java em JSON e vice-versa.
+
+```java
+public class Titulo implements Comparable<Titulo> {
+    @SerializedName("Title")
+    private String nome;
+    @SerializedName("Year")
+    private int anoDeLancamento;
+
+   public Titulo(String nome, int anoDeLancamento) {
+        this.nome = nome;
+        this.anoDeLancamento = anoDeLancamento;
+    }
+}
+
+```
+
+No exemplo, as anotações `@SerializedName` estão sendo usadas para indicar como os campos da classe `Titulo` devem ser serializados e desserializados quando trabalhamos com JSON. Por exemplo, o campo Java `nome` será serializado como a chave "Title" no JSON, e o campo `anoDeLancamento` será serializado como a chave "Year".
+
+Isso é particularmente útil quando você está lidando com APIs ou serviços web que trocam dados no formato JSON, garantindo que os nomes dos campos em sua classe Java estejam alinhados com as expectativas do JSON que você está enviando ou recebendo.
+
 ### Polimorfismo em Java
 
 O polimorfismo em Java refere-se à capacidade de entidades (métodos ou objetos) assumirem diferentes formas. Existem dois tipos principais: sobrecarga, com métodos de mesmo nome e diferentes parâmetros, e sobreposição, com métodos em classes relacionadas.
