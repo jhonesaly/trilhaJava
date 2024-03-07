@@ -1148,3 +1148,65 @@ public class ExemploGson {
 }
 
 ```
+
+## Exceções
+
+Em Java, exceções são eventos anormais que ocorrem durante a execução de um programa e podem interromper o fluxo normal do código. O tratamento de exceções é fundamental para lidar com essas situações de forma controlada.
+
+Principais conceitos sobre exceções e tratamento em Java:
+
+**Tipos de Exceções:**
+
+- **Checked Exceptions:** Obriga o programador a tratá-las, normalmente derivam de `Exception` (ex: `IOException`).
+- **Unchecked Exceptions (RuntimeExceptions):** Não exigem tratamento obrigatório, derivam de `RuntimeException` (ex: `NullPointerException`).
+
+**Blocos Try-Catch:**
+
+- O código propenso a lançar exceções é colocado dentro do bloco `try`.
+- O bloco `catch` contém o código que será executado se a exceção especificada ocorrer.
+
+```java
+try {
+    // Código que pode lançar exceções
+} catch (ExcecaoTipo1 e1) {
+    // Tratamento para ExcecaoTipo1
+} catch (ExcecaoTipo2 e2) {
+    // Tratamento para ExcecaoTipo2
+} finally {
+    // Bloco opcional que é executado sempre, ocorrendo ou não exceções
+}
+```
+
+**Bloco Finally:**
+
+- É opcional e é utilizado para conter código que deve ser executado, independentemente de ocorrer uma exceção ou não.
+
+**Throw e Throws:**
+
+- `throw` é usado para explicitamente lançar uma exceção.
+- `throws` é usado em declarações de método para indicar que o método pode lançar uma exceção específica.
+
+```java
+public void exemploMetodo() throws MinhaExcecao {
+    // Código do método
+    if (condicao) {
+        throw new MinhaExcecao("Mensagem de erro");
+    }
+}
+```
+
+**Múltiplos Catch:**
+
+- É possível ter vários blocos `catch` para tratar diferentes tipos de exceções.
+
+```java
+try {
+    // Código que pode lançar exceções
+} catch (ExcecaoTipo1 e1) {
+    // Tratamento para ExcecaoTipo1
+} catch (ExcecaoTipo2 e2) {
+    // Tratamento para ExcecaoTipo2
+} catch (ExcecaoGeral e) {
+    // Tratamento para outras exceções
+}
+```
