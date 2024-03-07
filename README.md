@@ -944,7 +944,70 @@ Resumindo, `Map` é uma interface que define a estrutura de dados de mapeamento 
 
 Em resumo, `Map` é uma interface que define a estrutura de um mapa chave-valor, enquanto `HashMap` é uma implementação específica dessa interface, utilizando uma tabela de dispersão para armazenar os dados. O `HashMap` é amplamente utilizado em Java para operações eficientes de mapeamento.
 
-## MVN repository
+## Maven 
+
+O Apache Maven é uma ferramenta de automação de construção e gerenciamento de projetos que simplifica o processo de compilação e gestão de dependências em projetos Java.
+
+### Adicionar Bibliotecas com Maven no VSCode
+
+**Crie ou abra o projeto no VSCode:**
+   Certifique-se de que o seu projeto Java está aberto no VSCode.
+
+**Caso não tenha, crie o arquivo `pom.xml`:**
+
+- Crie um arquivo chamado `pom.xml` na raiz do seu projeto.
+- Adicione o seguinte conteúdo inicial:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>seuGrupo</groupId>
+    <artifactId>seuArtefato</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</project>
+```
+
+Substitua "seuGrupo" e "seuArtefato" pelos valores apropriados para o seu projeto.
+
+**Configurar no VSCode:**
+
+- Abra o VSCode e instale a extensão "Java Extension Pack" se ainda não tiver.
+- O VSCode normalmente reconhecerá automaticamente que o projeto agora usa o Maven.
+
+**Adicionar dependências:**
+
+- Dentro do arquivo `pom.xml`, você pode adicionar dependências especificando-as dentro da tag `<dependencies>` dentro da tag `<project>`.
+
+Exemplo de adição de dependência para o Log4j:
+
+```xml
+<project>
+...
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+**Atualizar o projeto:**
+
+- Execute o comando Maven para baixar as dependências e atualizar o projeto:
+  
+```bash
+mvn clean install
+```
+
+Agora, seu projeto deve estar configurado com o Maven, e você pode adicionar dependências conforme necessário. Lembre-se de ajustar as configurações no `pom.xml` conforme a necessidade do seu projeto.
+
+### MVN repository
 
 O Maven Repository, muitas vezes referido como "MvnRepository" ou "Central Repository", é um repositório centralizado para armazenar e disponibilizar artefatos de software relacionados ao ecossistema do Apache Maven. O Maven é uma ferramenta de gerenciamento de construção e projeto amplamente utilizada na comunidade Java.
 
