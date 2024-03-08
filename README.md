@@ -1265,7 +1265,6 @@ O Spring Initializr é uma ferramenta online que permite criar um projeto Spring
 * **@RestController:** Indica que a classe é um controller RESTful.
 * **@RequestMapping:** Mapeia uma URL para um método da classe controller.
 
-#### Exemplo
 
 ```java
 @RestController
@@ -1280,3 +1279,34 @@ public class UserController {
 ```
 
 Neste exemplo, a classe `UserController` é um controller RESTful que mapeia a URL `/api` para o método `hello()`. O método `hello()` retorna a string "Hello, world!".
+
+
+### Anotações @PostMapping e @RequestBody
+
+- A anotação `@PostMapping` é utilizada em um método de um Controller para mapear uma requisição POST para um endpoint específico.
+- A anotação `@RequestBody` é utilizada em um parâmetro do método Controller para receber os dados do corpo da requisição e mapeá-los para um objeto Java.
+
+#### Padrão DTO
+
+- O padrão DTO (Data Transfer Object) é utilizado para representar os dados recebidos em uma requisição POST.
+- Java Records podem ser utilizados para criar DTOs de forma concisa e eficiente.
+
+```java
+@Controller
+@RequestMapping("/user")
+public class UserController {
+
+    @PostMapping
+    public void createUser(@RequestBody UserDTO user) {
+        // ...
+    }
+}
+
+public record UserDTO(
+    String name,
+    int age,
+    String email
+) {}
+```
+
+Neste exemplo, o método `createUser` é mapeado para a URL `/user` e recebe um objeto `UserDTO` como parâmetro. O objeto `UserDTO` é criado a partir dos dados JSON enviados na requisição POST.
