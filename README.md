@@ -1310,3 +1310,101 @@ public record UserDTO(
 ```
 
 Neste exemplo, o método `createUser` é mapeado para a URL `/user` e recebe um objeto `UserDTO` como parâmetro. O objeto `UserDTO` é criado a partir dos dados JSON enviados na requisição POST.
+
+### Adicionando Dependências
+
+O Maven, como gerenciador de dependências, facilita a inclusão de bibliotecas no projeto. As dependências são declaradas no arquivo pom.xml, que define as coordenadas (nome, versão) das bibliotecas necessárias.
+
+Exemplo:
+
+Para usar o Spring Data JPA, adicione a seguinte dependência no pom.xml:
+
+```XML
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+    <version>2.7.0</version>
+</dependency>
+```
+
+O Spring Boot fornece "starter dependencies" que agrupam dependências comuns para funcionalidades específicas.
+
+Outra maneirar simplificada de adicionar as dependências é indo em  [https://start.spring.io/](https://start.spring.io/), adicionando as dependências desejadas, clicando em "explorar", copiar as dependências e colar no arquivo `pom.xml`. Não esqueça de fazer um "reload" do maven para garantir que as dependências foram instaladas e dando restart no projeto.
+
+### Entidade JPA e Interface Repository
+
+O JPA (Java Persistence API) mapeia objetos Java para relacionamentos em um banco de dados. Uma entidade JPA é uma classe que representa uma tabela no banco de dados. Anotações JPA como @Entity, @Column e @GeneratedValue definem propriedades da entidade e da persistência.
+
+Exemplo:
+
+```Java
+@Entity
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String nome;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    // ...
+}
+```
+
+A interface Repository define operações CRUD (Create, Read, Update, Delete) para a entidade. O Spring Data JPA cria automaticamente uma implementação para a interface.
+
+Exemplo:
+
+```Java
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+
+    // ... métodos específicos da sua aplicação ...
+
+}
+```
+
+### Flyway como Ferramenta de Migrations
+
+Migrações de banco de dados são necessárias para alterar a estrutura do banco de dados ao longo do tempo. O Flyway é uma ferramenta que gerencia essas migrações de forma eficiente.
+
+Exemplo:
+
+Crie um script SQL para cada migração, nomeando-os com o formato V[VERSÃO]__[DESCRIÇÃO].sql. Por exemplo:
+
+```SQL
+V1_0__Criar_tabela_usuario.sql
+```
+
+No script, defina as alterações na estrutura da tabela. O Flyway executa os scripts na ordem crescente de versão, garantindo a atualização do banco de dados.
+
+### Validações com Bean Validation
+
+O Bean Validation fornece anotações para validar objetos Java. As anotações como @NotNull, @NotBlank, @Size e @Pattern verificam se os campos possuem valores corretos.
+
+Exemplo:
+
+```Java
+@Entity
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    @NotBlank(message = "Nome é obrigatório")
+    private String nome;
+
+    @Column(nullable = false, unique = true)
+    @Email(message = "Email inválido")
+    private String email;
+
+    // ...
+}
+```
+
+O Spring Boot integra o Bean Validation, permitindo que as validações sejam automaticamente aplicadas.
