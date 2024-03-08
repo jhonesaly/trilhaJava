@@ -1238,3 +1238,45 @@ public class LeituraDadosBuffered {
     }
 }
 ```
+
+---------
+
+## Spring
+
+O Spring Framework é um framework de desenvolvimento de aplicações Java de código aberto, amplamente utilizado para construir aplicações web robustas e escaláveis. Ele fornece diversos recursos para facilitar o desenvolvimento, como injeção de dependência, inversão de controle, gerenciamento de transações, acesso a dados e muito mais.
+
+### Spring Boot
+
+O Spring Boot é um framework que facilita o desenvolvimento de aplicações Spring. Ele fornece um conjunto de ferramentas e anotações que simplificam a configuração e o bootstrapping da aplicação, reduzindo a quantidade de código boilerplate necessário. O Spring Boot também oferece suporte para autoconfiguração, o que significa que a aplicação pode ser configurada automaticamente com base nas dependências presentes no classpath.
+
+### Spring Initializr
+
+O Spring Initializr é uma ferramenta online que permite criar um projeto Spring Boot rapidamente. Basta escolher as dependências desejadas e o Spring Initializr gera um projeto completo com a configuração básica pronta para uso. [https://start.spring.io/](https://start.spring.io/)
+
+#### Pastas no projeto criado com Spring Boot Initializr
+
+* **src/main/java:** Contém as classes Java da aplicação.
+* **src/main/resources:** Contém os arquivos de configuração da aplicação, como arquivos properties, XML e YAML.
+* **src/test/java:** Contém os testes unitários da aplicação.
+* **pom.xml:** Contém o arquivo de configuração do Maven, que define as dependências da aplicação.
+
+### Anotações @RestController e @RequestMapping
+
+* **@RestController:** Indica que a classe é um controller RESTful.
+* **@RequestMapping:** Mapeia uma URL para um método da classe controller.
+
+#### Exemplo
+
+```java
+@RestController
+@RequestMapping("/api")
+public class UserController {
+
+    @GetMapping("/")
+    public String hello() {
+        return "Hello, world!";
+    }
+}
+```
+
+Neste exemplo, a classe `UserController` é um controller RESTful que mapeia a URL `/api` para o método `hello()`. O método `hello()` retorna a string "Hello, world!".
