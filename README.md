@@ -1249,11 +1249,11 @@ O Spring Framework é um framework de desenvolvimento de aplicações Java de c�
 
 O Spring Boot é um framework que facilita o desenvolvimento de aplicações Spring. Ele fornece um conjunto de ferramentas e anotações que simplificam a configuração e o bootstrapping da aplicação, reduzindo a quantidade de código boilerplate necessário. O Spring Boot também oferece suporte para autoconfiguração, o que significa que a aplicação pode ser configurada automaticamente com base nas dependências presentes no classpath.
 
-### Spring Initializr
+#### Spring Initializr
 
 O Spring Initializr é uma ferramenta online que permite criar um projeto Spring Boot rapidamente. Basta escolher as dependências desejadas e o Spring Initializr gera um projeto completo com a configuração básica pronta para uso. [https://start.spring.io/](https://start.spring.io/)
 
-#### Pastas no projeto criado com Spring Boot Initializr
+##### Pastas no projeto criado com Spring Boot Initializr
 
 * **src/main/java:** Contém as classes Java da aplicação.
 * **src/main/resources:** Contém os arquivos de configuração da aplicação, como arquivos properties, XML e YAML.
@@ -1280,11 +1280,27 @@ public class UserController {
 
 Neste exemplo, a classe `UserController` é um controller RESTful que mapeia a URL `/api` para o método `hello()`. O método `hello()` retorna a string "Hello, world!".
 
+### Adicionando Dependências
 
-### Anotações @PostMapping e @RequestBody
+O Maven, como gerenciador de dependências, facilita a inclusão de bibliotecas no projeto. As dependências são declaradas no arquivo pom.xml, que define as coordenadas (nome, versão) das bibliotecas necessárias.
 
-- A anotação `@PostMapping` é utilizada em um método de um Controller para mapear uma requisição POST para um endpoint específico.
-- A anotação `@RequestBody` é utilizada em um parâmetro do método Controller para receber os dados do corpo da requisição e mapeá-los para um objeto Java.
+Exemplo:
+
+Para usar o Spring Data JPA, adicione a seguinte dependência no pom.xml:
+
+```XML
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+    <version>2.7.0</version>
+</dependency>
+```
+
+O Spring Boot fornece "starter dependencies" que agrupam dependências comuns para funcionalidades específicas.
+
+Outra maneirar simplificada de adicionar as dependências é indo em  [https://start.spring.io/](https://start.spring.io/), adicionando as dependências desejadas, clicando em "explorar", copiar as dependências e colar no arquivo `pom.xml`. Não esqueça de fazer um "reload" do maven para garantir que as dependências foram instaladas e dando restart no projeto.
+
+### Banco de Dados com Spring
 
 #### Padrão DTO
 
@@ -1311,29 +1327,9 @@ public record UserDTO(
 
 Neste exemplo, o método `createUser` é mapeado para a URL `/user` e recebe um objeto `UserDTO` como parâmetro. O objeto `UserDTO` é criado a partir dos dados JSON enviados na requisição POST.
 
-### Adicionando Dependências
+#### Entidade JPA e Interface Repository
 
-O Maven, como gerenciador de dependências, facilita a inclusão de bibliotecas no projeto. As dependências são declaradas no arquivo pom.xml, que define as coordenadas (nome, versão) das bibliotecas necessárias.
-
-Exemplo:
-
-Para usar o Spring Data JPA, adicione a seguinte dependência no pom.xml:
-
-```XML
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-    <version>2.7.0</version>
-</dependency>
-```
-
-O Spring Boot fornece "starter dependencies" que agrupam dependências comuns para funcionalidades específicas.
-
-Outra maneirar simplificada de adicionar as dependências é indo em  [https://start.spring.io/](https://start.spring.io/), adicionando as dependências desejadas, clicando em "explorar", copiar as dependências e colar no arquivo `pom.xml`. Não esqueça de fazer um "reload" do maven para garantir que as dependências foram instaladas e dando restart no projeto.
-
-### Entidade JPA e Interface Repository
-
-O JPA (Java Persistence API) mapeia objetos Java para relacionamentos em um banco de dados. Uma entidade JPA é uma classe que representa uma tabela no banco de dados. Anotações JPA como @Entity, @Column e @GeneratedValue definem propriedades da entidade e da persistência.
+O JPA (Java Persistence API) mapeia objetos Java para relacionamentos em um banco de dados. Uma entidade JPA é uma classe que representa uma tabela (entidade) no banco de dados. Anotações JPA como @Entity, @Column e @GeneratedValue definem propriedades da entidade e da persistência.
 
 Exemplo:
 
@@ -1381,6 +1377,12 @@ V1_0__Criar_tabela_usuario.sql
 
 No script, defina as alterações na estrutura da tabela. O Flyway executa os scripts na ordem crescente de versão, garantindo a atualização do banco de dados.
 
+### CREATE com Spring
+
+- A anotação `@PostMapping` é utilizada em um método de um Controller para mapear uma requisição POST para um endpoint específico.
+- A anotação `@RequestBody` é utilizada em um parâmetro do método Controller para receber os dados do corpo da requisição e mapeá-los para um objeto Java.
+
+
 ### Validações com Bean Validation
 
 O Bean Validation fornece anotações para validar objetos Java. As anotações como @NotNull, @NotBlank, @Size e @Pattern verificam se os campos possuem valores corretos.
@@ -1408,3 +1410,6 @@ public class Usuario {
 ```
 
 O Spring Boot integra o Bean Validation, permitindo que as validações sejam automaticamente aplicadas.
+
+### READ com Spring
+
