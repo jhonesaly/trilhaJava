@@ -1595,3 +1595,51 @@ public ResponseEntity excluir(@PathVariable Long id) {
     return ResponseEntity.noContent().build();
 }
 ```
+
+- **ok(body):** Cria uma resposta com o código 200 (OK) e o corpo da resposta definido pelo parâmetro `body`.
+- **noContent():** Cria uma resposta com o código 204 (No Content), indicando que a requisição foi bem-sucedida, mas não há conteúdo para retornar.
+- **build():** Finaliza a construção da resposta HTTP e retorna a instância da `ResponseEntity`, permitindo o encadeamento de métodos para construir a resposta de forma fluente.
+- **body(body):** Cria uma resposta com o código de status e o corpo especificados pelos parâmetros. Este método é mais genérico, permitindo a definição personalizada do corpo da resposta e do código de status. É utilizado para casos em que é necessário maior controle sobre o conteúdo da resposta.
+- **created(URI location):** Cria uma resposta com o código 201 (Created) e o cabeçalho "Location" definido para a URI do novo recurso.
+
+### URI
+
+As URIs (Uniform Resource Identifiers) são sequências de caracteres que identificam de maneira única um recurso na internet. Elas são utilizadas para identificar e localizar recursos, como páginas da web, imagens, documentos, serviços web, entre outros, de forma global.
+
+Existem dois tipos principais de URIs:
+
+1. **URL (Uniform Resource Locator):** Uma subcategoria de URIs que fornece a localização específica de um recurso na rede. As URLs incluem informações sobre como acessar o recurso, como o protocolo utilizado (por exemplo, "http" ou "https"), o domínio (como www.example.com) e o caminho para o recurso específico.
+
+   Exemplo de URL: `https://www.example.com/pagina`
+
+2. **URN (Uniform Resource Name):** Outra subcategoria de URIs, que tem como objetivo fornecer um identificador persistente e único para o recurso, independentemente de sua localização ou do tempo. URNs são menos comuns do que URLs na prática.
+
+   Exemplo de URN: `urn:isbn:0451450523`
+
+Em resumo, as URIs são essenciais para a identificação e acesso a recursos na internet, seja por meio de URLs que indicam a localização específica, ou URNs que fornecem identificadores únicos e persistentes.
+
+#### UriComponentsBuilder
+
+O `UriComponentsBuilder` é uma classe utilitária do Spring Framework que oferece uma maneira flexível de construir URIs. Ela simplifica a criação de URIs dinâmicas, especialmente útil ao lidar com parâmetros variáveis.
+
+```java
+@PostMapping
+@Transactional
+public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder) {
+    // Criação do objeto Medico com base nos dados recebidos
+    var medico = new Medico(dados);
+    
+    // Salvando o objeto Medico no repositório
+    repository.save(medico);
+    
+    // Construção da URI para o recurso recém-criado
+    var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
+
+    // Retorno da resposta com o código 201 (Created) e a URI do novo recurso
+    return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
+}
+```
+
+- **path(String path):** Define o caminho base da URI.
+- **buildAndExpand(Object... values):** Constrói a URI expandindo os valores fornecidos para preencher as variáveis de caminho.
+- **toUri():** Converte a representação atual para um objeto URI.
