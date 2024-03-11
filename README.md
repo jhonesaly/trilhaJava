@@ -1260,6 +1260,12 @@ O Spring Initializr é uma ferramenta online que permite criar um projeto Spring
 * **src/test/java:** Contém os testes unitários da aplicação.
 * **pom.xml:** Contém o arquivo de configuração do Maven, que define as dependências da aplicação.
 
+#### Properties
+
+O Spring Boot possui centenas de propriedades que podemos incluir nesse arquivo, sendo impossível memorizar todas elas. Sendo assim, é importante conhecer a documentação que lista todas essas propriedades, pois eventualmente precisaremos consultá-la.
+
+Você pode acessar a documentação oficial no link: [Common Application Properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).
+
 ### Anotações @RestController e @RequestMapping
 
 * **@RestController:** Indica que a classe é um controller RESTful.
