@@ -1600,11 +1600,12 @@ public ResponseEntity excluir(@PathVariable Long id) {
 }
 ```
 
-- **ok(body):** Cria uma resposta com o código 200 (OK) e o corpo da resposta definido pelo parâmetro `body`.
-- **noContent():** Cria uma resposta com o código 204 (No Content), indicando que a requisição foi bem-sucedida, mas não há conteúdo para retornar.
-- **build():** Finaliza a construção da resposta HTTP e retorna a instância da `ResponseEntity`, permitindo o encadeamento de métodos para construir a resposta de forma fluente.
-- **body(body):** Cria uma resposta com o código de status e o corpo especificados pelos parâmetros. Este método é mais genérico, permitindo a definição personalizada do corpo da resposta e do código de status. É utilizado para casos em que é necessário maior controle sobre o conteúdo da resposta.
-- **created(URI location):** Cria uma resposta com o código 201 (Created) e o cabeçalho "Location" definido para a URI do novo recurso.
+- `ok(body)`: Cria uma resposta com o código 200 (OK) e o corpo da resposta definido pelo parâmetro `body`.
+- `noContent()`: Cria uma resposta com o código 204 (No Content), indicando que a requisição foi bem-sucedida, mas não há conteúdo para retornar.
+- `build():** Finaliza a construção da resposta HTTP e retorna a instância da `ResponseEntity`, permitindo o encadeamento de métodos para construir a resposta de forma fluente.
+- `body(body)`: Cria uma resposta com o código de status e o corpo especificados pelos parâmetros. Este método é mais genérico, permitindo a definição personalizada do corpo da resposta e do código de status. É utilizado para casos em que é necessário maior controle sobre o conteúdo da resposta.
+- `created(URI location)`: Cria uma resposta com o código 201 (Created) e o cabeçalho "Location" definido para a URI do novo recurso.
+- - `.notFound()`: Método da classe `ResponseEntity` que configura a resposta com o código de status 404 (Not Found). Este método indica que a entidade requisitada não foi encontrada.
 
 ### URI
 
@@ -1644,6 +1645,24 @@ public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedico dados, U
 }
 ```
 
-- **path(String path):** Define o caminho base da URI.
-- **buildAndExpand(Object... values):** Constrói a URI expandindo os valores fornecidos para preencher as variáveis de caminho.
-- **toUri():** Converte a representação atual para um objeto URI.
+- `path(String path)`: Define o caminho base da URI.
+- `buildAndExpand(Object... values)`: Constrói a URI expandindo os valores fornecidos para preencher as variáveis de caminho.
+- `toUri()`: Converte a representação atual para um objeto URI.
+
+### Tratamento de Erros com Spring
+
+Nesta aula, exploramos a maneira eficiente de lidar com erros em aplicações Spring, utilizando as anotações `@RestControllerAdvice` e `@ExceptionHandler`. A abordagem adotada visa oferecer respostas adequadas quando uma exceção específica, como `EntityNotFoundException`, é lançada durante a execução do código.
+
+```java
+@RestControllerAdvice
+public class TratadorDeErros {
+    
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity tratarErro404() {
+        return ResponseEntity.notFound().build();
+    }
+}
+```
+
+- `@RestControllerAdvice`: Esta anotação indica que a classe atua como um manipulador global de exceções para controladores marcados com `@RestController`.
+- `@ExceptionHandler(EntityNotFoundException.class)`: Este método é chamado quando uma exceção do tipo `EntityNotFoundException` é lançada. Ele personaliza a resposta, utilizando `ResponseEntity.notFound().build()` para indicar um status HTTP 404 (Not Found).
