@@ -1385,6 +1385,15 @@ No script, defina as alterações na estrutura da tabela. O Flyway executa os sc
    spring.jpa.show-sql=true
    ```
 
+#### Adicionando nova coluna
+
+Ao criar uma nova coluna com intenção que a mesma seja `NOT NULL`, deve-se atentar para, antes de realziar essa declaração, criar a coluna e atribuir valores.
+
+```sql
+ALTER TABLE pacientes ADD COLUMN ativo TINYINT;
+UPDATE pacientes SET ativo = 1;
+ALTER TABLE pacientes MODIFY ativo TINYINT NOT NULL;
+```
 
 ### CREATE com Spring
 
@@ -1495,3 +1504,61 @@ Criamos uma classe DadosAtualizacaoMedico usando a nova feature do Java, chamada
 No interior do método, obtivemos uma referência ao médico a ser atualizado usando o método `getReferenceById` do repositório. Em seguida, chamamos o método `atualizarInformacoes` do objeto `medico` para aplicar as alterações com base nos dados fornecidos.
 
 No método atualizarInformacoes da classe Medico, realizamos a lógica de atualização, verificando se os dados fornecidos não são nulos antes de aplicar as alterações no objeto Medico. Essa abordagem permite uma atualização seletiva, apenas alterando os campos que foram fornecidos.
+
+### Delete com Spring
+
+```java
+@DeleteMapping("/{id}")
+@Transactional
+public void remover(@PathVariable Long id) {
+    //repository.deleteById(id); //exclusão completa
+    var paciente = repository.getReferenceById(id);
+    paciente.inativar();
+}
+```
+
+#### Mapeamento de Requisições DELETE
+
+Utilizamos a anotação `@DeleteMapping` para mapear a operação DELETE em nosso Controller de Paciente. Isso permite a criação de um endpoint específico para exclusão de recursos.
+
+Neste trecho de código, estamos utilizando o método `remover` que recebe o identificador do paciente a ser removido como parâmetro. Dentro do método, obtemos a referência do paciente pelo ID e chamamos o método `inativar`, implementado na entidade Paciente, para realizar a exclusão lógica.
+
+#### Manipulação de Parâmetros Dinâmicos em URL
+
+A anotação `@PathVariable` foi utilizada para mapear parâmetros dinâmicos na URL, possibilitando a passagem do ID do paciente a ser removido.
+
+```java
+public void inativar() {
+    this.ativo = false;
+}
+```
+
+No método `inativar` da entidade Paciente, definimos o atributo `ativo` como falso, marcando o paciente como inativo.
+
+Poderia der sido utilizado o método `deleteById()`, mas ele faria uma exclusão completa no banco de dados, o que poderia causar inconsistências por haver outros dados que se relacionam com o dado deletado.
+
+#### Implementação de Exclusão Lógica
+
+A exclusão lógica foi implementada através da introdução de um atributo booleano `ativo` na entidade Paciente. Alteramos o construtor da entidade para inicializar este atributo como verdadeiro e criamos o método `inativar` para modificar seu valor.
+
+```java
+private Boolean ativo;
+
+public Paciente(DadosCadastroPaciente dados) {
+    this.ativo = true;
+    // ... restante do código
+}
+```
+
+#### Atualização do Método de Listagem
+
+No Controller de Paciente, modificamos o método de listagem para trazer apenas os pacientes ativos e criamos o respectivo método na interface `PacienteRepository`.
+
+```java
+@GetMapping
+public Page<DadosListagemPaciente> listar(@PageableDefault(page = 0, size = 10, sort = { "nome" }) Pageable paginacao) {
+    return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
+}
+
+Page<Paciente> findAllByAtivoTrue(Pageable paginacao);
+```
