@@ -1255,22 +1255,21 @@ O Spring Initializr é uma ferramenta online que permite criar um projeto Spring
 
 ##### Pastas no projeto criado com Spring Boot Initializr
 
-* **src/main/java:** Contém as classes Java da aplicação.
-* **src/main/resources:** Contém os arquivos de configuração da aplicação, como arquivos properties, XML e YAML.
-* **src/test/java:** Contém os testes unitários da aplicação.
-* **pom.xml:** Contém o arquivo de configuração do Maven, que define as dependências da aplicação.
+- **src/main/java:** Contém as classes Java da aplicação.
+- **src/main/resources:** Contém os arquivos de configuração da aplicação, como arquivos properties, XML e YAML.
+- **src/test/java:** Contém os testes unitários da aplicação.
+- **pom.xml:** Contém o arquivo de configuração do Maven, que define as dependências da aplicação.
 
 #### Properties
 
-O Spring Boot possui centenas de propriedades que podemos incluir nesse arquivo, sendo impossível memorizar todas elas. Sendo assim, é importante conhecer a documentação que lista todas essas propriedades, pois eventualmente precisaremos consultá-la.
+O Spring Boot possui centenas de propriedades que podemos incluir nesse arquivo (application.properties), sendo impossível memorizar todas elas. Sendo assim, é importante conhecer a documentação que lista todas essas propriedades, pois eventualmente precisaremos consultá-la.
 
 Você pode acessar a documentação oficial no link: [Common Application Properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).
 
 ### Anotações @RestController e @RequestMapping
 
-* **@RestController:** Indica que a classe é um controller RESTful.
-* **@RequestMapping:** Mapeia uma URL para um método da classe controller.
-
+- **@RestController:** Indica que a classe é um controller RESTful.
+- **@RequestMapping:** Mapeia uma URL para um método da classe controller.
 
 ```java
 @RestController
@@ -1384,7 +1383,7 @@ V1_0__Criar_tabela_usuario.sql
 No script, defina as alterações na estrutura da tabela. O Flyway executa os scripts na ordem crescente de versão, garantindo a atualização do banco de dados.
 
 #### Configuração para Exibição de Comandos SQL no Console
-   
+
    Por fim, discutimos como configurar o projeto para exibir os comandos SQL no console. Essa configuração é útil para debugging e compreensão do que está ocorrendo no banco de dados. Adicionamos a seguinte configuração no arquivo `application.properties`:
 
    ```properties
@@ -1405,7 +1404,6 @@ ALTER TABLE pacientes MODIFY ativo TINYINT NOT NULL;
 
 - A anotação `@PostMapping` é utilizada em um método de um Controller para mapear uma requisição POST para um endpoint específico.
 - A anotação `@RequestBody` é utilizada em um parâmetro do método Controller para receber os dados do corpo da requisição e mapeá-los para um objeto Java.
-
 
 ### Validações com Bean Validation
 
