@@ -1450,3 +1450,48 @@ public class MeuController {
 #### Controle de Paginação e Ordenação
 
    Nosso estudo também abrangeu o controle da paginação e ordenação dos dados devolvidos pela API. Para isso, utilizamos os parâmetros `page`, `size`, e `sort`. Esses parâmetros são essenciais para personalizar a resposta da API de acordo com as necessidades do cliente.
+
+### Update com Spring
+
+```java
+@PutMapping
+@Transactional
+public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
+    var medico = repository.getReferenceById(dados.id());
+    medico.atualizarInformacoes(dados);
+}
+
+public record DadosAtualizacaoMedico(
+        @NotNull
+        long id,
+        String nome,
+        String telefone,
+        DadosEndereco endereco) {
+}
+
+public void atualizarInformacoes(DadosAtualizacaoMedico dados) {
+    if (dados.nome() != null) {
+        this.nome = dados.nome();
+    }
+    if (dados.telefone() != null) {
+        this.telefone = dados.telefone();
+    }
+    if (dados.endereco() != null) {
+        this.endereco.atualizarInformacoes(dados.endereco());
+    }
+}
+```
+
+#### Utilizando a Anotação @PutMapping
+
+A anotação @PutMapping desempenha um papel fundamental no desenvolvimento de APIs, pois ela é responsável por mapear métodos que lidam com requisições HTTP do tipo PUT. Essa operação é frequentemente utilizada para atualizar informações em um servidor, e a anotação @PutMapping facilita a associação dessas operações a métodos específicos em nossos Controllers.
+
+No exemplo, criamos um método chamado `atualizar` que recebe como parâmetro um objeto record `DadosAtualizacaoMedico` representando as informações a serem atualizadas. Destacamos a utilização da anotação @PutMapping acima do método, indicando que esse método responderá a requisições PUT.
+
+Além disso, incorporamos a anotação @Transactional, que é essencial quando lidamos com transações em um contexto de persistência de dados. Isso garante que a transação seja concluída com sucesso ou revertida em caso de falha, mantendo a consistência do banco de dados.
+
+Criamos uma classe DadosAtualizacaoMedico usando a nova feature do Java, chamada record, para representar os dados que serão utilizados na atualização do médico. Utilizamos anotações como @NotNull para garantir a validação dos dados.
+
+No interior do método, obtivemos uma referência ao médico a ser atualizado usando o método `getReferenceById` do repositório. Em seguida, chamamos o método `atualizarInformacoes` do objeto `medico` para aplicar as alterações com base nos dados fornecidos.
+
+No método atualizarInformacoes da classe Medico, realizamos a lógica de atualização, verificando se os dados fornecidos não são nulos antes de aplicar as alterações no objeto Medico. Essa abordagem permite uma atualização seletiva, apenas alterando os campos que foram fornecidos.
