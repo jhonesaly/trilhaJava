@@ -1562,3 +1562,36 @@ public Page<DadosListagemPaciente> listar(@PageableDefault(page = 0, size = 10, 
 
 Page<Paciente> findAllByAtivoTrue(Pageable paginacao);
 ```
+
+### ResponseEntity
+
+O `ResponseEntity` é uma classe que representa toda a resposta HTTP: código de status, cabeçalhos e corpo da resposta. Isso proporciona maior controle sobre o que é retornado ao cliente durante a execução de um endpoint.
+
+É uma classe flexível e poderosa que encapsula a resposta HTTP. Ele oferece a capacidade de definir o código de status, cabeçalhos e corpo da resposta de maneira customizada. Este recurso é particularmente útil quando precisamos personalizar a resposta além dos casos comuns.
+
+```java
+@GetMapping
+public ResponseEntity<Page<DadosListagemMedico>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+    var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
+    return ResponseEntity.ok(page);
+}
+
+@PutMapping
+@Transactional
+public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
+    var medico = repository.getReferenceById(dados.id());
+    medico.atualizarInformacoes(dados);
+
+    return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
+}
+
+@DeleteMapping("/{id}")
+@Transactional
+public ResponseEntity excluir(@PathVariable Long id) {
+    //repository.deleteById(id); //exclusão completa
+    var medico = repository.getReferenceById(id); //exclusão lógica (inativação)
+    medico.desativar();
+
+    return ResponseEntity.noContent().build();
+}
+```
