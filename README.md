@@ -1377,6 +1377,15 @@ V1_0__Criar_tabela_usuario.sql
 
 No script, defina as alterações na estrutura da tabela. O Flyway executa os scripts na ordem crescente de versão, garantindo a atualização do banco de dados.
 
+#### Configuração para Exibição de Comandos SQL no Console
+   
+   Por fim, discutimos como configurar o projeto para exibir os comandos SQL no console. Essa configuração é útil para debugging e compreensão do que está ocorrendo no banco de dados. Adicionamos a seguinte configuração no arquivo `application.properties`:
+
+   ```properties
+   spring.jpa.show-sql=true
+   ```
+
+
 ### CREATE com Spring
 
 - A anotação `@PostMapping` é utilizada em um método de um Controller para mapear uma requisição POST para um endpoint específico.
@@ -1413,3 +1422,31 @@ O Spring Boot integra o Bean Validation, permitindo que as validações sejam au
 
 ### READ com Spring
 
+```java
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+
+@RestController
+public class MeuController {
+
+    @GetMapping
+    public Page<DadosListagemMedico> listar(@PageableDefault(size=10, sort={"nome"}) Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosListagemMedico::new);
+    }
+}
+```
+
+#### Anotação @GetMapping
+
+   A anotação `@GetMapping` é essencial para mapear métodos em Controllers que produzem dados. Essa anotação é utilizada para associar uma URL específica a um método no controlador, permitindo a resposta adequada às requisições HTTP GET.
+
+#### Interface Pageable do Spring
+
+   A interface `Pageable` do Spring é uma ferramenta poderosa para realizar consultas com paginação. Ela permite a recuperação de dados de maneira segmentada, facilitando a apresentação e manipulação de grandes conjuntos de dados.
+
+#### Controle de Paginação e Ordenação
+
+   Nosso estudo também abrangeu o controle da paginação e ordenação dos dados devolvidos pela API. Para isso, utilizamos os parâmetros `page`, `size`, e `sort`. Esses parâmetros são essenciais para personalizar a resposta da API de acordo com as necessidades do cliente.
