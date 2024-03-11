@@ -1356,6 +1356,14 @@ public class Usuario {
 }
 ```
 
+``@Table(name = "usuario")``: Define a tabela no banco de dados associada à entidade Usuario.
+``@Entity(name = "Usuarios")``: Indica que a classe Usuario é uma entidade JPA com o nome associado no banco de dados como "Usuarios".
+``@Getter``: Gera automaticamente métodos getters para todos os campos da classe.
+``@NoArgsConstructor``: Gera um construtor padrão sem argumentos.
+``@AllArgsConstructor``: Gera um construtor que inclui todos os campos da classe como argumentos.
+``@EqualsAndHashCode(of = "id")``: Implementa automaticamente os métodos equals e hashCode, usando apenas o campo "id" para a comparação.
+``@Id @GeneratedValue(strategy = GenerationType.IDENTITY)``: Define a propriedade "id" como a chave primária da entidade, com estratégia de geração automática de valor.
+
 A interface Repository define operações CRUD (Create, Read, Update, Delete) para a entidade. O Spring Data JPA cria automaticamente uma implementação para a interface.
 
 Exemplo:
@@ -1367,6 +1375,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 }
 ```
+
+Essa extensão possui uma vasta gama de possibilidade de querys. Para ver a lista completa, consulte: [JPA Query Methods](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html).
 
 ### Flyway como Ferramenta de Migrations
 
@@ -1681,3 +1691,8 @@ public class TratadorDeErros {
 - `@ExceptionHandler(EntityNotFoundException.class)`: Este método é chamado quando uma exceção do tipo `EntityNotFoundException` é lançada. Ele personaliza a resposta, utilizando `ResponseEntity.notFound().build()` para indicar um status HTTP 404 (Not Found).
 - `@ExceptionHandler(MethodArgumentNotValidException.class):` Método que trata exceções do tipo `MethodArgumentNotValidException`, retornando uma resposta com status 400 e incluindo detalhes sobre os erros de validação.
 - `.getFieldErrors():` Método utilizado para obter a lista de erros de campo em uma exceção de validação.
+
+### Segurança com Spring
+
+Para tal, utiliza-se o "Spring Security" disponível no Initializr. A gestão é feita por meio de uma classe anotada como serviço.
+
