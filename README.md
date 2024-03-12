@@ -2007,3 +2007,10 @@ public record DadosCompra(
     @JsonAlias({“data_da_compra”, “data_compra”}) LocalDate dataCompra
 ){}
 ```
+
+`@JsonFormat`: personaliza padrão para utilizar outras formatações de nossa preferência.
+
+```java
+@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+LocalDateTime data
+```
