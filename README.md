@@ -1996,3 +1996,14 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
   - `.getSubject()`: Obtém o assunto do token JWT.
 - `HttpSecurity`
   - `.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)`: Adiciona o filtro de segurança antes do filtro padrão de autenticação do Spring, controlando a ordem de execução dos filtros.
+
+### Outros tópicos
+
+`@JsonAlias`: serve para mapear “apelidos” alternativos para os campos que serão recebidos do JSON, sendo possível atribuir múltiplos alias
+
+```java
+public record DadosCompra(
+    @JsonAlias({“produto_id”, “id_produto”}) Long idProduto,
+    @JsonAlias({“data_da_compra”, “data_compra”}) LocalDate dataCompra
+){}
+```
