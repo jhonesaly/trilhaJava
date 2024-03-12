@@ -1914,3 +1914,85 @@ public class TokenService {
   - `.withClaim("id", usuario.getId())`: Adiciona um claim personalizado ao token, neste caso, o ID do usuário.
   - `.sign(algoritmo)`: Realiza a assinatura do token utilizando o algoritmo previamente configurado.
 - `JWTCreationException`: representa uma exceção que pode ser lançada durante o processo de criação de um token JWT.
+
+#### Security Filter
+
+Filters são componentes importantes em uma aplicação web que permitem processar requisições e respostas antes ou depois que elas cheguem ao destino final. Eles podem ser usados para autenticação, autorização, logging, entre outros propósitos.
+
+```java
+@Component
+public class SecurityFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private UsuarioRepository repository;
+    
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        var tokenJWT = recuperarToken(request);
+
+        if (tokenJWT != null) {
+            var subject = tokenService.getSubject(tokenJWT);
+            var usuario = repository.findByLogin(subject);
+
+            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
+    private String recuperarToken(HttpServletRequest request) {
+        var authorizationHeader = request.getHeader("Authorization");
+        if (authorizationHeader != null) {
+            return authorizationHeader.replace("Bearer ", "");
+        } return null;
+    }
+}
+
+public String getSubject(String tokenJWT) {
+    try {
+        var algoritmo = Algorithm.HMAC256(secret);
+        return JWT.require(algoritmo)
+                .withIssuer("API Voll.med")
+                .build()
+                .verify(tokenJWT)
+                .getSubject();
+    } catch (JWTVerificationException exception){
+        throw new RuntimeException("Token JWT inválido ou expirado!");
+    }
+}
+
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    return
+        http.csrf(csrf -> csrf.disable())
+            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(req -> {
+                req.requestMatchers("/login").permitAll();
+                req.anyRequest().authenticated();
+            })
+            .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) //controle da ordem de filtros
+            .build();
+}
+```
+
+- `doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)`: Método responsável por processar internamente a lógica do filtro de segurança.
+- `OncePerRequestFilter`: é uma classe do Spring que garante que o filtro será executado apenas uma vez por requisição. Isso é útil para evitar múltiplas execuções desnecessárias do filtro em uma única requisição.
+- `SecurityContextHolder`:
+  - `.getContext()`: Obtém o contexto de segurança atual da aplicação.
+  - `.setAuthentication(authentication)`: Define a autenticação atual no contexto de segurança.
+- `HttpServletRequest`:
+  - `getHeader`: Método para recuperar o cabeçalho de uma requisição HTTP.
+- `HttpServletResponse`: Representa a resposta HTTP que será enviada de volta ao cliente.
+- `FilterChain`:
+  - `.doFilter(request, response)`: Invoca o próximo filtro na cadeia.
+- `JWT`
+  - `.require()`: Configura o que é requerido para a verificação do token JWT.
+  - `.build()`: Constrói o verificador de token JWT.
+  - `.verify(tokenJWT)`: Realiza a verificação do token JWT.
+  - `.getSubject()`: Obtém o assunto do token JWT.
+- `HttpSecurity`
+  - `.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)`: Adiciona o filtro de segurança antes do filtro padrão de autenticação do Spring, controlando a ordem de execução dos filtros.
