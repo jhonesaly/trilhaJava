@@ -1629,7 +1629,7 @@ public ResponseEntity excluir(@PathVariable Long id) {
 - `body(body)`: Cria uma resposta com o código de status e o corpo especificados pelos parâmetros. Este método é mais genérico, permitindo a definição personalizada do corpo da resposta e do código de status. É utilizado para casos em que é necessário maior controle sobre o conteúdo da resposta.
 - `created(URI location)`: Cria uma resposta com o código 201 (Created) e o cabeçalho "Location" definido para a URI do novo recurso.
 - `.notFound()`: configura a resposta com o código de status 404 (Not Found). Este método indica que a entidade requisitada não foi encontrada.
-- `.badRequest():` Método que retorna uma resposta com status 400 (Bad Request).
+- `.badRequest()`: Método que retorna uma resposta com status 400 (Bad Request).
 
 ### URI
 
@@ -1702,8 +1702,8 @@ public class TratadorDeErros {
 
 - `@RestControllerAdvice`: Esta anotação indica que a classe atua como um manipulador global de exceções para controladores marcados com `@RestController`.
 - `@ExceptionHandler(EntityNotFoundException.class)`: Este método é chamado quando uma exceção do tipo `EntityNotFoundException` é lançada. Ele personaliza a resposta, utilizando `ResponseEntity.notFound().build()` para indicar um status HTTP 404 (Not Found).
-- `@ExceptionHandler(MethodArgumentNotValidException.class):` Método que trata exceções do tipo `MethodArgumentNotValidException`, retornando uma resposta com status 400 e incluindo detalhes sobre os erros de validação.
-- `.getFieldErrors():` Método utilizado para obter a lista de erros de campo em uma exceção de validação.
+- `@ExceptionHandler(MethodArgumentNotValidException.class)`: Método que trata exceções do tipo `MethodArgumentNotValidException`, retornando uma resposta com status 400 e incluindo detalhes sobre os erros de validação.
+- `.getFieldErrors()`: Método utilizado para obter a lista de erros de campo em uma exceção de validação.
 
 ### Segurança com Spring
 
@@ -1763,13 +1763,19 @@ public class AutenticacaoController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
-        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authentication = manager.authenticate(token);
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var authentication = manager.authenticate(authenticationToken);
 
-        return ResponseEntity.ok().build();
+        var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
+
 }
 ```
 
@@ -1855,3 +1861,56 @@ public class AutenticacaoService implements UserDetailsService {
 - `@Service`: Indica que a classe é um serviço.
 - `UserDetailsService`: Implementação do serviço de detalhes do usuário para autenticação.
 - `loadUserByUsername(String username)`: Método que carrega os detalhes do usuário pelo nome de usuário, utilizando o `UsuarioRepository`.
+
+#### JWT
+
+JSON Web Token, ou JWT, é um padrão utilizado para a geração de tokens, que nada mais são do que Strings, representando, de maneira segura, informações que serão compartilhadas entre dois sistemas.
+
+É necessário instalar a [dependência](https://github.com/auth0/java-jwt) para utilizar JWT:
+
+```xml
+<dependency>
+  <groupId>com.auth0</groupId>
+  <artifactId>java-jwt</artifactId>
+  <version>4.4.0</version>
+</dependency>
+```
+
+##### TokenService
+
+```java
+@Service
+public class TokenService {
+
+    @Value("${api.security.token.secret}")
+    private String secret;
+
+    public String gerarToken(Usuario usuario) {
+        try {
+            var algoritmo = Algorithm.HMAC256(secret);
+            return JWT.create()
+                    .withIssuer("API Voll.med")
+                    .withSubject(usuario.getLogin())
+                    .withExpiresAt(dataExpiracao())
+                    .sign(algoritmo);
+        } catch (JWTCreationException exception){
+            throw new RuntimeException("erro ao gerar token jwt", exception);
+        }
+    }
+
+    private Instant dataExpiracao() {
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    }
+}
+```
+
+- `@Value("${})`: utilizada para injetar valores de propriedades do arquivo application.properties em atributos de uma classe gerenciada pelo Spring.
+- `Algorithm`: faz parte da biblioteca Auth0 java-jwt e é utilizada para escolher e configurar o algoritmo de assinatura do token JWT.
+  - `.HMAC256()`: este método da classe `Algorithm` especifica o algoritmo de assinatura HMAC usando SHA-256. No exemplo, é utilizado para criar uma instância de algoritmo com a chave secreta fornecida.
+- `JWT` é responsável pela construção e configuração do token JWT antes de assiná-lo.
+  - `.withIssuer("API Voll.med")`: Define o emissor do token como "API Voll.med".
+  - `.withSubject(usuario.getLogin())`: Define o assunto do token como o login do usuário.
+  - `.withExpiresAt(dataExpiracao())`: Define a data de expiração do token, utilizando o método `dataExpiracao()` da classe `TokenService`.
+  - `.withClaim("id", usuario.getId())`: Adiciona um claim personalizado ao token, neste caso, o ID do usuário.
+  - `.sign(algoritmo)`: Realiza a assinatura do token utilizando o algoritmo previamente configurado.
+- `JWTCreationException`: representa uma exceção que pode ser lançada durante o processo de criação de um token JWT.
