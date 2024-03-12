@@ -1268,13 +1268,16 @@ Você pode acessar a documentação oficial no link: [Common Application Propert
 
 ### Anotações @RestController e @RequestMapping
 
-- **@RestController:** Indica que a classe é um controller RESTful.
-- **@RequestMapping:** Mapeia uma URL para um método da classe controller.
+- `@RestController`: Indica que a classe é um controller RESTful.
+- `@RequestMapping`: Mapeia uma URL para um método da classe controller.
 
 ```java
 @RestController
 @RequestMapping("/api")
 public class UserController {
+
+    @Autowired
+    private UserRepository repository;
 
     @GetMapping("/")
     public String hello() {
@@ -1356,13 +1359,14 @@ public class Usuario {
 }
 ```
 
-``@Table(name = "usuario")``: Define a tabela no banco de dados associada à entidade Usuario.
-``@Entity(name = "Usuarios")``: Indica que a classe Usuario é uma entidade JPA com o nome associado no banco de dados como "Usuarios".
-``@Getter``: Gera automaticamente métodos getters para todos os campos da classe.
-``@NoArgsConstructor``: Gera um construtor padrão sem argumentos.
-``@AllArgsConstructor``: Gera um construtor que inclui todos os campos da classe como argumentos.
-``@EqualsAndHashCode(of = "id")``: Implementa automaticamente os métodos equals e hashCode, usando apenas o campo "id" para a comparação.
-``@Id @GeneratedValue(strategy = GenerationType.IDENTITY)``: Define a propriedade "id" como a chave primária da entidade, com estratégia de geração automática de valor.
+- `@Autowired`: é utilizada em Spring Framework para realizar a injeção de dependência automaticamente. Essa anotação indica ao contêiner Spring que ele deve fornecer a instância de uma classe como dependência para a classe que está sendo anotada.
+- `@Table(name = "usuario")`: Define a tabela no banco de dados associada à entidade Usuario.
+- `@Entity(name = "Usuarios")`: Indica que a classe Usuario é uma entidade JPA com o nome associado no banco de dados como "Usuarios".
+- `@Getter`: Gera automaticamente métodos getters para todos os campos da classe.
+- `@NoArgsConstructor`: Gera um construtor padrão sem argumentos.
+- `@AllArgsConstructor`: Gera um construtor que inclui todos os campos da classe como argumentos.
+- `@EqualsAndHashCode(of = "id")`: Implementa automaticamente os métodos equals e hashCode, usando apenas o campo "id" para a comparação.
+- `@Id @GeneratedValue(strategy = GenerationType.IDENTITY)`: Define a propriedade "id" como a chave primária da entidade, com estratégia de geração automática de valor.
 
 A interface Repository define operações CRUD (Create, Read, Update, Delete) para a entidade. O Spring Data JPA cria automaticamente uma implementação para a interface.
 
@@ -1412,32 +1416,41 @@ ALTER TABLE pacientes MODIFY ativo TINYINT NOT NULL;
 
 ### CREATE com Spring
 
-- A anotação `@PostMapping` é utilizada em um método de um Controller para mapear uma requisição POST para um endpoint específico.
-- A anotação `@RequestBody` é utilizada em um parâmetro do método Controller para receber os dados do corpo da requisição e mapeá-los para um objeto Java.
+- `@PostMapping`: é utilizada em um método de um Controller para mapear uma requisição POST para um endpoint específico.
+- `@RequestBody`: é utilizada em um parâmetro do método Controller para receber os dados do corpo da requisição e mapeá-los para um objeto Java.
+- `@Valid`: é uma parte do Java Bean Validation, que é uma especificação para validação de dados em objetos de domínio. Essa anotação é frequentemente usada em métodos de controladores em frameworks como Spring MVC para indicar que um objeto deve ser validado antes de ser processado.
 
-### Validações com Bean Validation
+#### Validações com Bean Validation
 
 O Bean Validation fornece anotações para validar objetos Java. As anotações como @NotNull, @NotBlank, @Size e @Pattern verificam se os campos possuem valores corretos.
 
 Exemplo:
 
 ```Java
-@Entity
-public class Usuario {
+@PostMapping
+@Transactional
+public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder) {
+    var medico = new Medico(dados);
+    repository.save(medico);
+    var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
+}
 
-    @Column(nullable = false)
-    @NotBlank(message = "Nome é obrigatório")
-    private String nome;
-
-    @Column(nullable = false, unique = true)
-    @Email(message = "Email inválido")
-    private String email;
-
-    // ...
+public record DadosCadastroMedico(
+    @NotBlank
+    String nome,
+    @NotBlank
+    @Email
+    String email,
+    @NotBlank
+    String telefone,
+    @NotBlank
+    @Pattern(regexp = "\\d{4,6}")
+    String crm,
+    @NotNull
+    Especialidade especialidade,
+    @NotNull @Valid DadosEndereco endereco) {
 }
 ```
 
@@ -1474,7 +1487,7 @@ public class MeuController {
 
    Nosso estudo também abrangeu o controle da paginação e ordenação dos dados devolvidos pela API. Para isso, utilizamos os parâmetros `page`, `size`, e `sort`. Esses parâmetros são essenciais para personalizar a resposta da API de acordo com as necessidades do cliente.
 
-### Update com Spring
+### UPDATE com Spring
 
 ```java
 @PutMapping
@@ -1684,7 +1697,7 @@ public class TratadorDeErros {
             this(erro.getField(), erro.getDefaultMessage());
         }
     }
-
+}
 ```
 
 - `@RestControllerAdvice`: Esta anotação indica que a classe atua como um manipulador global de exceções para controladores marcados com `@RestController`.
@@ -1708,13 +1721,137 @@ public class SecurityConfigurations {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
 ```
 
+#### Security Configuration
+
+Anotações:
+
 - `@Configuration`: indica que a classe contém métodos de configuração que serão processados pelo contêiner Spring.
 - `@EnableWebSecurity`: ativa a segurança baseada na web para o aplicativo Spring.
+- `@Bean`: indica que um método produzirá um bean (uma instância de uma classe que é gerenciada pelo contêiner e pode ser utilizado em diversas partes do aplicativo) gerenciado pelo Spring, que neste caso é a configuração da cadeia de filtros de segurança.
+
+Classes e métodos:
+
 - `SecurityFilterChain`: é uma classe que define a configuração da cadeia de filtros de segurança.
 - `HttpSecurity`: é utilizado para configurar as regras de segurança específicas para requisições HTTP.
-- `.csrf(csrf -> csrf.disable())`: desabilita a proteção CSRF (Cross-Site Request Forgery) pois o spring já faz esse controle e acaba sendo redundante.
-- `.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))`: Configura a política de gerenciamento de sessão como `STATELESS`, indicando que o aplicativo não deve criar sessões para usuários.
-- `@Bean`: indica que um método produzirá um bean (uma instância de uma classe que é gerenciada pelo contêiner e pode ser utilizado em diversas partes do aplicativo) gerenciado pelo Spring, que neste caso é a configuração da cadeia de filtros de segurança.
+  - `.csrf(csrf -> csrf.disable())`: desabilita a proteção CSRF (Cross-Site Request Forgery) pois o spring já faz esse controle e acaba sendo redundante.
+  - `.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))`: Configura a política de gerenciamento de sessão como `STATELESS`, indicando que o aplicativo não deve criar sessões para usuários.
+- `AuthenticationManager`: Configura o gerenciador de autenticação.
+  - `getAuthenticationManager()`: é utilizado na configuração do sistema de segurança para obter o gerenciador de autenticação. Ele é parte integrante do fluxo de autenticação do Spring Security.
+- `PasswordEncoder`: Configura o codificador de senhas.
+  - `BCryptPasswordEncoder()`: é utilizado na configuração do sistema de segurança para especificar um codificador de senhas baseado no algoritmo BCrypt. Este algoritmo de hash é amplamente utilizado para armazenar senhas de forma segura.
+
+#### Autentication Controller
+
+```java
+@RestController
+@RequestMapping("/login")
+public class AutenticacaoController {
+
+    @Autowired
+    private AuthenticationManager manager;
+
+    @PostMapping
+    public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
+        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var authentication = manager.authenticate(token);
+
+        return ResponseEntity.ok().build();
+    }
+}
+```
+
+- `@RestController`: Indica que a classe é um controlador REST.
+- `@RequestMapping("/login")`: Mapeia a URL base para as operações de login.
+- `AuthenticationManager`: Injeta o gerenciador de autenticação.
+- `efetuarLogin(@RequestBody @Valid DadosAutenticacao dados)`: Método para efetuar o login, utilizando `UsernamePasswordAuthenticationToken`.
+
+#### User Configuration
+
+```java
+@Table(name = "usuarios")
+@Entity(name = "Usuario")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+
+public class Usuario implements UserDetails {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String login;
+    private String senha;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
+}
+```
+
+- `@Table(name = "usuarios")` e `@Entity(name = "Usuario")`: Mapeamento da entidade usuário para a tabela "usuarios".
+- Implementação da interface `UserDetails` para integração com Spring Security, sobrescrevendo os métodos da interface para retornar os atributos da classe (no caso, login e senha).
+- `SimpleGrantedAuthority` é utilizada para representar uma autoridade ou papel atribuído a um usuário no contexto de segurança.
+
+#### Autenticacao Service
+
+```java
+@Service
+public class AutenticacaoService implements UserDetailsService {
+
+    @Autowired
+    private UsuarioRepository repository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByLogin(username);
+    }
+}
+```
+
+- `@Service`: Indica que a classe é um serviço.
+- `UserDetailsService`: Implementação do serviço de detalhes do usuário para autenticação.
+- `loadUserByUsername(String username)`: Método que carrega os detalhes do usuário pelo nome de usuário, utilizando o `UsuarioRepository`.
