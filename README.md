@@ -1696,3 +1696,25 @@ public class TratadorDeErros {
 
 Para tal, utiliza-se o "Spring Security" disponível no Initializr. A gestão é feita por meio de uma classe anotada como serviço.
 
+```java
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfigurations {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf(csrf -> csrf.disable())
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
+    }
+}
+```
+
+- `@Configuration`: indica que a classe contém métodos de configuração que serão processados pelo contêiner Spring.
+- `@EnableWebSecurity`: ativa a segurança baseada na web para o aplicativo Spring.
+- `SecurityFilterChain`: é uma classe que define a configuração da cadeia de filtros de segurança.
+- `HttpSecurity`: é utilizado para configurar as regras de segurança específicas para requisições HTTP.
+- `.csrf(csrf -> csrf.disable())`: desabilita a proteção CSRF (Cross-Site Request Forgery) pois o spring já faz esse controle e acaba sendo redundante.
+- `.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))`: Configura a política de gerenciamento de sessão como `STATELESS`, indicando que o aplicativo não deve criar sessões para usuários.
+- `@Bean`: indica que um método produzirá um bean (uma instância de uma classe que é gerenciada pelo contêiner e pode ser utilizado em diversas partes do aplicativo) gerenciado pelo Spring, que neste caso é a configuração da cadeia de filtros de segurança.
