@@ -2014,3 +2014,17 @@ public record DadosCompra(
 @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 LocalDateTime data
 ```
+
+`@Query`: uma anotação utilizada em métodos de interfaces de repositórios no Spring Data JPA para criar consultas personalizadas. Permite definir consultas diretamente no código-fonte, fornecendo maior flexibilidade na obtenção de dados do banco de dados.
+
+```java
+@Repository
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {
+
+    @Query("""
+        SELECT p FROM Produto p 
+        WHERE p.nome = :nome
+        """)
+    Optional<Produto> findByNome(@Param("nome") String nome);
+}
+```
