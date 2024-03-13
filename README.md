@@ -2028,3 +2028,38 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     Optional<Produto> findByNome(@Param("nome") String nome);
 }
 ```
+
+`@DataJpaTest`: Esta é uma anotação do Spring Boot que é usada para testar a camada de persistência de dados de uma aplicação JPA. Ela configura automaticamente o ambiente de teste para interagir com o banco de dados, carrega apenas as classes relevantes para a camada de persistência e fornece várias funcionalidades úteis para testes de integração de banco de dados.
+
+```java
+@DataJpaTest
+class ProdutoRepositoryTest {
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    // Testes relacionados à persistência de dados usando o repositório
+}
+```
+
+`@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)`: Essa anotação é usada para desativar a substituição automática do banco de dados de teste. Isso significa que o ambiente de teste utilizará o mesmo banco de dados configurado para o ambiente de produção. É útil quando se deseja testar o código em um ambiente o mais próximo possível do ambiente de produção.
+
+```java
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+class ProdutoRepositoryTest {
+
+    // Configuração para usar o banco de dados configurado para produção nos testes
+}
+```
+
+`@ActiveProfiles("test")`: Essa anotação é usada para ativar um perfil específico durante os testes. Perfil é uma maneira de agrupar configurações específicas para ambientes diferentes. No exemplo abaixo, o perfil "test" pode ser usado para carregar configurações específicas para testes.
+
+```java
+@DataJpaTest
+@ActiveProfiles("test")
+class ProdutoRepositoryTest {
+
+    // Configurações específicas para o perfil de teste
+}
+```
