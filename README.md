@@ -250,20 +250,26 @@ Vamos abordar os loops mais comuns em Java, como `while` e `for`. Essas estrutur
 
 ## Criação de Classes e Objetos em Java
 
-### Public e Private
+### Modificadores
 
-Em Java, as palavras-chave `public` e `private` são utilizadas para controlar o acesso aos membros de uma classe. Quando um atributo ou método é declarado como `public`, ele pode ser acessado por qualquer classe. Por outro lado, ao declarar como `private`, restringimos o acesso apenas à própria classe.
+**Acesso:**
 
-Exemplo:
+- `public`: Acesso de qualquer lugar.
+- `private`: Acesso restrito à própria classe.
+- `protected`: Acesso pela própria classe, classes no mesmo pacote e subclasses.
+- `default` (ou sem modificador): Acesso apenas por classes no mesmo pacote.
 
-```java
-public class ExemploClasse {
-    public int atributoPublico;
-    private String atributoPrivado;
+**Restrição de Alteração:**
 
-    // Métodos e construtores aqui...
-}
-```
+- `final`: Elemento não pode ser alterado depois de inicializado.
+- `abstract`: Elemento não possui implementação e deve ser implementado por subclasses.
+
+**Propriedade de Classe:**
+
+- `static`: Pertence à classe em vez de instâncias individuais.
+- `volatile`: Valor da variável pode ser alterado por várias threads concorrentes.
+- `transient`: Variável não deve ser serializada quando o objeto é serializado.
+- `synchronized`: Método ou bloco de código acessado por uma única thread por vez.
 
 ### Getters e Setters
 
