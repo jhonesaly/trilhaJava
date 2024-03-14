@@ -1997,6 +1997,60 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 - `HttpSecurity`
   - `.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)`: Adiciona o filtro de segurança antes do filtro padrão de autenticação do Spring, controlando a ordem de execução dos filtros.
 
+### springdoc
+
+O SpringDoc é uma ferramenta que simplifica a geração de documentação para APIs RESTful desenvolvidas com o Spring Framework. Ele integra-se perfeitamente com o Spring Boot, permitindo que você gere automaticamente a documentação da sua API a partir dos seus controladores REST.
+
+Uma das principais características do SpringDoc é a integração com o Swagger, uma ferramenta amplamente utilizada para documentar APIs. Com o SpringDoc, você pode gerar automaticamente uma documentação interativa da sua API, que pode ser visualizada em um navegador da web. Isso facilita a compreensão da estrutura da sua API, os endpoints disponíveis, os parâmetros aceitos e as respostas retornadas.
+
+Aqui está um exemplo básico de como usar o SpringDoc em um aplicativo Spring Boot:
+
+1. Adicione a dependência do SpringDoc ao seu arquivo `pom.xml` (caso esteja usando Maven) ou `build.gradle` (caso esteja usando Gradle):
+
+```xml
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-ui</artifactId>
+    <version>1.6.4</version>
+</dependency>
+```
+
+2. Configure sua aplicação para habilitar o SpringDoc. Por exemplo, você pode fazer isso em uma classe de configuração Spring:
+
+```java
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+@EnableWebMvc
+public class WebConfig implements WebMvcConfigurer {
+    // Adicione qualquer configuração adicional aqui
+}
+```
+
+3. Agora, vamos criar um controlador REST simples e documentá-lo usando anotações do SpringDoc:
+
+```java
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.Operation;
+
+@RestController
+public class ExemploController {
+
+    @Operation(summary = "Exemplo de endpoint GET")
+    @GetMapping("/exemplo")
+    public String exemplo() {
+        return "Olá, mundo!";
+    }
+}
+```
+
+Neste exemplo, utilizamos a anotação `@Operation` fornecida pelo SpringDoc para documentar o endpoint. Isso adiciona uma descrição ao endpoint na documentação gerada.
+
+4. Ao iniciar sua aplicação Spring Boot, você pode acessar a documentação gerada navegando até `/swagger-ui.html` no seu navegador. Lá, você verá uma interface interativa que lista todos os endpoints da sua API, juntamente com suas descrições e parâmetros.
+
 ### Outros tópicos
 
 `@JsonAlias`: serve para mapear “apelidos” alternativos para os campos que serão recebidos do JSON, sendo possível atribuir múltiplos alias
