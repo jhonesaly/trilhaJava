@@ -1245,6 +1245,67 @@ public class LeituraDadosBuffered {
 }
 ```
 
+### Jackson
+
+Jackson é uma poderosa biblioteca Java que facilita a serialização e deserialização de objetos, especialmente em formatos como JSON. Ela oferece recursos robustos para converter objetos Java em representações JSON e vice-versa, tornando a integração de dados entre sistemas mais eficiente e fácil de implementar.
+
+Com Jackson, é possível mapear automaticamente campos de objetos Java para propriedades JSON e vice-versa, sem a necessidade de escrever código manualmente para cada conversão. Isso reduz significativamente a quantidade de trabalho necessário para manipular dados em aplicativos Java que fazem uso de serviços da web, armazenamento de dados em banco de dados NoSQL, ou qualquer outro cenário que envolva a troca de informações no formato JSON.
+
+Além disso, Jackson oferece suporte a recursos avançados, como personalização da serialização e deserialização, tratamento de tipos genéricos e polimorfismo, o que o torna uma escolha popular para desenvolvedores Java que precisam lidar com comunicação de dados em seus projetos.
+
+A seguir, um exemplo básico de como utilizar Jackson para serializar um objeto Java para JSON e deserializá-lo de volta:
+
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class JacksonExample {
+    public static void main(String[] args) {
+        // Criar um objeto ObjectMapper, responsável por realizar a conversão
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            // Criar um objeto Java para serializar em JSON
+            Person person = new Person("John", 30);
+
+            // Serializar o objeto para JSON
+            String json = objectMapper.writeValueAsString(person);
+            System.out.println("Objeto serializado em JSON: " + json);
+
+            // Deserializar o JSON de volta para um objeto Java
+            Person deserializedPerson = objectMapper.readValue(json, Person.class);
+            System.out.println("JSON deserializado para objeto: " + deserializedPerson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+// Classe de exemplo para serialização/deserialização
+class Person {
+    private String name;
+    private int age;
+
+    public Person() {}
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getters e setters omitidos para brevidade
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+```
+
+Neste exemplo, a classe `Person` é serializada para JSON e depois deserializada de volta para um objeto Java utilizando o ObjectMapper da biblioteca Jackson. Isso demonstra como é simples e eficiente utilizar Jackson para trabalhar com dados JSON em Java.
+
 ---------
 
 ## Boas práticas
