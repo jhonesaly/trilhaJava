@@ -2051,6 +2051,127 @@ Neste exemplo, utilizamos a anotação `@Operation` fornecida pelo SpringDoc par
 
 4. Ao iniciar sua aplicação Spring Boot, você pode acessar a documentação gerada navegando até `/swagger-ui.html` no seu navegador. Lá, você verá uma interface interativa que lista todos os endpoints da sua API, juntamente com suas descrições e parâmetros.
 
+### Testes
+
+Os testes são uma parte crucial do desenvolvimento de aplicativos, garantindo que o código funcione conforme o esperado e permaneça estável ao longo do tempo. Com o Spring Boot, é fácil escrever testes para verificar o comportamento do seu aplicativo.
+
+**Testes de Integração** com `@SpringBootTest` e `@ActiveProfiles`:
+
+```java
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+@SpringBootTest
+@ActiveProfiles("test")
+public class MinhaAplicacaoIntegrationTest {
+
+    @Autowired
+    private MeuComponente meuComponente;
+
+    @Test
+    public void testarAlgumaFuncionalidade() {
+        // Teste da funcionalidade usando meuComponente
+    }
+}
+```
+
+**Testes de Controlador** com `MockMvc`:
+
+```java
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class MeuControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    public void testarEndpoint() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/endpoint"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+}
+```
+
+**Testes de Serialização JSON** com `JacksonTester<>`:
+
+```java
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.JsonTest;
+import org.springframework.boot.test.json.JacksonTester;
+
+@JsonTest
+public class MeuObjetoJsonTest {
+
+    @Autowired
+    private JacksonTester<MeuObjeto> jsonTester;
+
+    @Test
+    public void testarSerializacao() throws Exception {
+        MeuObjeto objeto = new MeuObjeto();
+        objeto.setPropriedade("valor");
+
+        assertThat(jsonTester.write(objeto)).isEqualToJson("esperado.json");
+    }
+}
+```
+
+**Simulação de Usuário Autenticado** com `@WithMockUser`:
+
+```java
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+@WebMvcTest(MinhaController.class)
+public class MeuControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    @WithMockUser(username = "user", roles = "USER")
+    public void testarEndpointProtegido() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/endpoint-protegido"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+}
+```
+
+- `@ActiveProfiles`: Essa anotação é usada para ativar perfis específicos durante os testes. Os perfis são usados para personalizar o ambiente de execução do aplicativo com base em certas condições, como ambiente de desenvolvimento, teste ou produção.
+- `@SpringBootTest`: Essa anotação é usada para indicar que o teste deve carregar todo o contexto do aplicativo Spring durante a execução do teste. Isso inclui a configuração do aplicativo, beans, controladores, etc.
+- `@Test`: Essa anotação é usada para marcar um método como um método de teste. Os métodos anotados com `@Test` serão executados quando o teste for iniciado.
+- `@DisplayName("")`: Esta anotação é usada para fornecer um nome personalizado para o método de teste na saída do teste. É útil para tornar os relatórios de teste mais legíveis e compreensíveis.
+- `@WithMockUser`: Essa anotação é usada para simular um usuário autenticado durante os testes de integração. Você pode especificar as informações do usuário, como nome de usuário, papel, etc., para simular diferentes cenários de autenticação.
+- `MockMvc`: Essa é uma classe fornecida pelo Spring Framework que permite simular as requisições HTTP e testar os controladores da sua aplicação sem a necessidade de iniciar um servidor HTTP.
+  - `.perform()`: Este método é usado para executar uma ação HTTP, como GET, POST, PUT ou DELETE, em um endpoint do controlador.
+  - `.andReturn()`: Este método é usado para obter o resultado da execução da ação HTTP.
+  - `.getResponse()`: Este método é usado para obter o objeto `MockHttpServletResponse`, que representa a resposta HTTP retornada pelo endpoint do controlador.
+  - `.getStatus()`: Este método é usado para obter o código de status HTTP da resposta.
+- `JacksonTester<>`: Essa é uma classe fornecida pelo Spring Boot para facilitar o teste de serialização e desserialização de objetos JSON usando a biblioteca Jackson.
+  - `.write()`: Este método é usado para serializar um objeto Java para sua representação JSON, que pode então ser usada para testar a saída JSON de um endpoint do controlador.
+
+#### Mockito
+
+O Mockito é uma estrutura de teste de código aberto que permite a criação de objetos simulados (mocks) em testes de unidade. Com o Mockito, você pode simular o comportamento de objetos reais em um ambiente de teste controlado.
+
+Este resumo cobre os conceitos básicos de testes com Spring Boot, incluindo a configuração de perfis, carregamento do contexto do aplicativo, execução de testes, simulação de usuários autenticados, testes de controladores usando o MockMvc e teste de serialização/desserialização JSON com JacksonTester. Além disso, inclui uma breve menção ao Mockito, uma ferramenta útil para testes de unidade em Spring Boot.
+
 ### Outros tópicos
 
 `@JsonAlias`: serve para mapear “apelidos” alternativos para os campos que serão recebidos do JSON, sendo possível atribuir múltiplos alias
