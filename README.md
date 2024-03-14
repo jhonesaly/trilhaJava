@@ -1247,6 +1247,22 @@ public class LeituraDadosBuffered {
 
 ---------
 
+## Boas práticas
+
+### SOLID
+
+1. **S - Single Responsibility Principle (Princípio da Responsabilidade Única):** Este princípio estabelece que uma classe deve ter apenas uma razão para mudar, ou seja, ela deve ter uma única responsabilidade. Isso promove a coesão e facilita a manutenção do código.
+
+2. **O - Open/Closed Principle (Princípio Aberto/Fechado):** Este princípio sugere que as entidades de software (classes, módulos, funções, etc.) devem ser abertas para extensão, mas fechadas para modificação. Isso significa que você pode estender o comportamento de uma entidade sem alterar seu código-fonte original.
+
+3. **L - Liskov Substitution Principle (Princípio da Substituição de Liskov):** Esse princípio afirma que objetos de uma classe base devem ser substituíveis por objetos de suas classes derivadas sem afetar a integridade do programa. Em outras palavras, uma classe derivada deve ser capaz de substituir a classe base sem alterar o comportamento esperado do programa.
+
+4. **I - Interface Segregation Principle (Princípio da Segregação de Interfaces):** Este princípio preconiza que uma classe não deve ser forçada a implementar interfaces que ela não utiliza. Em vez disso, as interfaces devem ser segregadas em conjuntos específicos de métodos relacionados, e as classes devem implementar apenas as interfaces relevantes para elas.
+
+5. **D - Dependency Inversion Principle (Princípio da Inversão de Dependência):** Este princípio sugere que módulos de alto nível não devem depender de módulos de baixo nível, ambos devem depender de abstrações. Além disso, abstrações não devem depender de detalhes, mas sim os detalhes devem depender de abstrações. Isso promove um acoplamento mais flexível e reduz a dependência direta entre classes.
+
+---------
+
 ## Spring
 
 O Spring Framework é um framework de desenvolvimento de aplicações Java de código aberto, amplamente utilizado para construir aplicações web robustas e escaláveis. Ele fornece diversos recursos para facilitar o desenvolvimento, como injeção de dependência, inversão de controle, gerenciamento de transações, acesso a dados e muito mais.
