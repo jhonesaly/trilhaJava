@@ -2172,6 +2172,34 @@ O Mockito é uma estrutura de teste de código aberto que permite a criação de
 
 Este resumo cobre os conceitos básicos de testes com Spring Boot, incluindo a configuração de perfis, carregamento do contexto do aplicativo, execução de testes, simulação de usuários autenticados, testes de controladores usando o MockMvc e teste de serialização/desserialização JSON com JacksonTester. Além disso, inclui uma breve menção ao Mockito, uma ferramenta útil para testes de unidade em Spring Boot.
 
+### Build de projeto
+
+Crie um arquivo `.properties` específico para o ambiente de produção. Por exemplo, você pode chamar este arquivo de `application-prod.properties`. Nele, você pode definir as configurações específicas do ambiente de produção, como configurações de banco de dados, URLs, etc.
+
+Abra um terminal na raiz do seu projeto e execute o comando Maven para construir o projeto. Isso compilará o código, executará os testes e empacotará o aplicativo em um arquivo .jar.
+
+```bash
+mvn clean package
+```
+
+Após a conclusão do comando Maven, o arquivo .jar do seu projeto Spring Boot estará localizado no diretório `target` dentro da pasta do seu projeto. Geralmente, o arquivo será nomeado como `nome-do-projeto-<versão>.jar`.
+
+Após a conclusão do comando Maven, o arquivo .jar será criado no diretório `target`.
+
+Você pode passar as configurações de variáveis de ambiente diretamente na linha de comando ao executar o arquivo `.jar`. Por exemplo, suponha que você tenha uma propriedade `spring.datasource.url` no seu arquivo `.properties` que deseja sobrescrever com uma variável de ambiente:
+
+```bash
+java -jar -Dspring.profiles.active=prod -Dspring.config.location=classpath:/,file:/caminho/para/seu/application-prod.properties -Dspring.datasource.username=${MYSQL_USER} -Dspring.datasource.password=${MYSQL_PASSWORD} -Dspring.datasource.url=${MYSQL_URL} -Doutra.variavel=valor_da_variavel aplicacao.jar
+```
+
+Neste exemplo:
+
+- `${MYSQL_USER}`, `${MYSQL_PASSWORD}` e `${MYSQL_URL}` são variáveis de ambiente que devem ser configuradas previamente com os valores adequados para o usuário, senha e URL do banco de dados MySQL.
+- `-Dspring.datasource.username`, `-Dspring.datasource.password` e `-Dspring.datasource.url` são usados para configurar as propriedades do banco de dados no Spring Boot, utilizando as variáveis de ambiente correspondentes.
+- `-Doutra.variavel=valor_da_variavel` é um exemplo de como você pode definir outras variáveis de ambiente conforme necessário.
+
+Certifique-se de substituir os valores das variáveis de ambiente `${MYSQL_USER}`, `${MYSQL_PASSWORD}` e `${MYSQL_URL}` com os valores corretos para o seu ambiente de produção.
+
 ### Outros tópicos
 
 `@JsonAlias`: serve para mapear “apelidos” alternativos para os campos que serão recebidos do JSON, sendo possível atribuir múltiplos alias
