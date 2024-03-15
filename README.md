@@ -2349,3 +2349,11 @@ class ProdutoRepositoryTest {
     // Configurações específicas para o perfil de teste
 }
 ```
+
+## Fontes interessantes:
+
+### Padrões de projeto
+
+- [Refactoring Guru](https://refactoring.guru/pt-br/design-patterns)
+- [TutorialsPoint](https://www.tutorialspoint.com/design_pattern/index.htm)
+- [Repositório no GitHub](https://github.com/iluwatar/java-design-patterns)
